@@ -1,10 +1,39 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+//Gameboard
+import Gameboard from "../views/Gameboard/GameboardPage.vue";
+import Levels from "../views/Gameboard/ChooseLevel.vue";
+
+// GameWebsite
+import Home from "../views/GameWebsite/StartPage.vue";
+import About from "../views/GameWebsite/AboutPage.vue";
+import Profile from "../views/GameWebsite/ProfilePage.vue";
+
 const routes = [
   {
     path: "/",
-    name: "StartPage",
-    component: () => import("../views/StartPage.vue"),
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/gameboard",
+    name: "Gameboard",
+    component: Gameboard,
+  },
+  {
+    path: "/levels",
+    name: "Levels",
+    component: Levels,
   },
 ];
 
