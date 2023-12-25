@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import StartPage from './views/GameWebsite/StartPage.vue';
 </script>
 
