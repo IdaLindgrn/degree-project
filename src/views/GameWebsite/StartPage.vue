@@ -1,10 +1,12 @@
 
 
 <script setup lang="ts">
-import supabase from '../../config/supabaseClient';
-console.log(supabase)
+import Header from '../../components/Header.vue'
+
 </script>
 
 <template>
-    <h2>Home</h2>
+  <h1>Start Page</h1>
 </template>
+
+

@@ -3,7 +3,7 @@
 
     <template>
       <div>
-        <h1>Gameboard</h1>
+        <h1>Profile Page</h1>
       </div>
     </template>
     

@@ -7,7 +7,7 @@ import Levels from "../views/Gameboard/ChooseLevel.vue";
 // GameWebsite
 import Home from "../views/GameWebsite/StartPage.vue";
 import About from "../views/GameWebsite/AboutPage.vue";
-import Profile from "../views/GameWebsite/ProfilePage.vue";
+import Profile from "../views/Profile/ProfilePage.vue";
 
 const routes = [
   {
