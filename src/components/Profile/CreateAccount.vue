@@ -10,29 +10,29 @@ const profilePicture = ref('');
 
 const registerUser = async () => {
   try {
-    const { user, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
     });
 
     if (error) {
-      console.error(error.message);
+      console.error('Sign-up error:', error.message);
     } else {
-      // User is registered, add additional information to the user table
+      console.log('User signed up:', data);
       await supabase
         .from('users')
         .upsert([
           {
-            id: user?.id,
+            id: data?.user?.id,
             email: email.value,
             username: username.value,
             profile_picture: profilePicture.value,
           },
         ]);
-
-      // You can redirect to another page or show a success message
+        console.log('User added to the "users" table:', data);
     }
-  } catch (error) {
+     
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -43,16 +43,16 @@ const registerUser = async () => {
 <template>
     <form @submit.prevent="registerUser">
       <label>Email:</label>
-      <input v-model="email" type="email" required />
+      <input v-model="email" type="email" placeholder="Enter your email" required />
   
       <label>Username:</label>
-      <input v-model="username" type="text" required />
+      <input v-model="username" type="text" placeholder="Enter your username" required />
   
       <label>Password:</label>
-      <input v-model="password" type="password" required />
+      <input v-model="password" type="password" placeholder="Enter your password" required />
   
       <label>Profile Picture URL:</label>
-      <input v-model="profilePicture" type="url" />
+      <input v-model="profilePicture" type="url" placeholder="Enter the URL of your profile picture" />
   
       <button type="submit">Register</button>
     </form>

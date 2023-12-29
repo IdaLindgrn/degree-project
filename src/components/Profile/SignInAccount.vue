@@ -1,49 +1,88 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import supabase from '../../config/supabaseClient'; 
+import router from '../../router/routes';
 
-const emailOrUsername = ref('');
+const email = ref('');
 const password = ref('');
+
+const showPopup = ref(false);
+const popupMessage = ref('');
+
+const authUser = ref();
 
 const signInUser = async () => {
   try {
-    const { data, error } = await supabase
-      .from('users')
-      .select()
-      .or(
-        `email.eq.${emailOrUsername.value}`,
-        `username.eq.${emailOrUsername.value}`
-      );
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    });
 
     if (error) {
       console.error('Sign-in error:', error.message);
+      showPopup.value = true;
+      popupMessage.value = 'Invalid login credentials.';
     } else {
-      const user = data?.[0];
-   
-      if (user && user.password === password.value) {
-        console.log('User signed in:', user);
+      console.log('User signed in:', data);
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select()
+        .eq('email', email.value);
+
+        if (userError) {
+        console.error('Error fetching user details:', userError.message);
       } else {
-        console.error('Invalid credentials');
+        console.log('User details from the "users" table:', userData);
       }
+
+      authUser.value = data;
+      localStorage.setItem('authUser', JSON.stringify(data));
+      showPopup.value = true;
+      popupMessage.value = 'Login successful!';
     }
-  } catch (error) {
-    console.error('Unexpected error:', error.message);
+  } catch (error: any) {
+    console.error('Unexpected error', error.message);
+    showPopup.value = true;
+    popupMessage.value = 'Unexpected error. Please try again later.';
+  }
+};
+
+const closePopup = () => {
+  showPopup.value = false;
+  if (authUser.value) {
+    router.push('/');
   }
 };
 </script>
 
 <template>
+   <div>
     <form @submit.prevent="signInUser">
-    <label for="emailOrUsername">Email or Username:</label>
-    <input id="emailOrUsername" v-model="emailOrUsername" type="text" required />
+    <label for="emailOrUsername">Email:</label>
+    <input id="emailOrUsername" v-model="email" type="text" placeholder="Enter your email" required />
 
     <label for="password">Password:</label>
-    <input id="password" v-model="password" type="password" required />
+    <input id="password" v-model="password" type="password"  placeholder="Enter your password" required />
 
     <button type="submit">Sign In</button>
   </form>
+
+  <div v-if="showPopup" class="popup">
+      {{ popupMessage }}
+      <button @click="closePopup">Close</button>
+    </div>
+   </div>
   </template>
 
 <style scoped>
-/* Your styles here */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1em;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 </style>
