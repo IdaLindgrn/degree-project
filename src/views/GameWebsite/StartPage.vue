@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import Header from '../../components/Header.vue'
 
 const router = useRouter();
 
@@ -12,6 +13,7 @@ const startGame = () => {
 </script>
 
 <template>
+  <Header></Header>
    <div class="banner-container">
     <div class="background-image"></div>
 

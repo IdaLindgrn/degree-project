@@ -26,7 +26,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/gameboard",
+    path: "/gameboard:levelId",
     name: "Gameboard",
     component: Gameboard,
   },

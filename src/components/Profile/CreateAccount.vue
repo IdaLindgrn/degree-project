@@ -38,8 +38,6 @@ const registerUser = async () => {
 };
 </script>
 
-
-<!-- RegistrationForm.vue -->
 <template>
     <form @submit.prevent="registerUser">
       <label>Email:</label>
@@ -59,6 +57,5 @@ const registerUser = async () => {
   </template>
   
   <style scoped>
-  /* Your styles here */
   </style>
   
