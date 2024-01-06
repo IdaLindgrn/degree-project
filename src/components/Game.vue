@@ -95,5 +95,25 @@ onMounted(() => {
   width: 100px;
   height: 60px;
   object-fit: cover;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 70vh;
+  height: 70vh;
+  }
+  .cat {
+  width: 70px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.box {
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
 }
 </style>

@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
+import InputField from '../../components/InputField.vue';
 
 const level = ref<any | null>(null);
 const route = useRoute();
@@ -36,8 +37,9 @@ onMounted(() => {
       <p>{{ level?.title }}</p>
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
+      <InputField />
     </div>
-    <div class="gameboard-container">
+    <div>
       <Game :level="level" :levelId="route.params.levelId" />
     </div>
   </div>
@@ -64,9 +66,18 @@ onMounted(() => {
    flex-direction: row;
    justify-content: space-around;
   }
+
   .level-container {
-   
+  width: 100%; 
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column-reverse;
+    align-items: center;
   }
+
+}
 
   .back-button {
     margin-bottom: 10px;
