@@ -48,7 +48,8 @@ const navigateToGameboard = (levelId: number) => {
     <body class="body">
       <div class="level-container" v-for="(level, index) in levels" :key="index" @click="() => navigateToGameboard(level.id)">
         <p>{{ level.title }}</p>
-        <p>{{ level.description }}</p>
+        <p>{{ level.level_name }}</p>
+        <p>{{ level.learn }}</p>
       </div>
     </body>
 </template>
@@ -77,6 +78,7 @@ const navigateToGameboard = (levelId: number) => {
   text-align: center;
   background-color: #2d1b5b;
   margin: 30px;
+  color: #fff;
 }
 
 @media only screen and (min-width: 768px) {

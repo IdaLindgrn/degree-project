@@ -16,11 +16,6 @@ const startGame = () => {
   <Header></Header>
    <div class="banner-container">
     <div class="background-image"></div>
-
-    <div class="centered-text">
-      <h1>Your Centered Text</h1>
-    </div>
-
     <div class="start-game-button" @click="startGame">
       <img src="../../assets/startgamebutton.png" alt="Start Game Button" width="300">
     </div>
