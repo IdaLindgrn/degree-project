@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const catStyle = ref<string>('');
+const textareaValue = ref('');
+
+const handleInput = () => { 
+}
 </script>
 
 <template>
@@ -10,8 +13,11 @@ const catStyle = ref<string>('');
       <div class="line-numbers">
         <div v-for="i in 10" :key="i" class="line-number">{{ i }}</div>
       </div>
-      <label for="catStyleInput">#alley {</label>
-      <input id="catStyleInput" v-model="catStyle" />
+      <div class="input">
+        <p>#alley {</p>
+        <p>display: flex;</p>
+      <textarea id="catStyleInput" v-model="textareaValue" @input="handleInput"></textarea>
+    </div>
     </div>
   </div>
 </template>
@@ -23,13 +29,18 @@ const catStyle = ref<string>('');
   flex-direction: column;
 }
 
-label {
-  color: white;
+p {
+  padding-left: 15px;
+  color:  #694971;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: smaller;
+  padding-bottom: 10px;
   font-weight: bold;
 }
 
 .input-container {
   display: flex;
+  flex-direction: row;
   align-items: baseline;
 }
 
@@ -38,8 +49,13 @@ label {
   flex-direction: column;
   align-items: flex-end;
   padding: 12px;
+  padding-top: 20px;
   gap: 13px;
   background-color: #87718d;
+}
+
+.input {
+   padding-bottom: 13px;
 }
 
 .line-number {
@@ -48,16 +64,11 @@ label {
 }
 
 #catStyleInput {
+  margin-left: 10px;
+  padding-left: 5px;
   flex-grow: 1;
   border: none;
   outline: none;
-  color: white;
-}
-
-/* Styling for the "outside the input" part */
-#alley {
-  margin-left: 10px; /* Adjust as needed */
-  color: white;
-  font-family: monospace;
+  color: #694971;
 }
 </style>
