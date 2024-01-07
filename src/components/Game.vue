@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 // images
 import BlackCat from '@/assets/BlackCat.png';
@@ -15,9 +15,18 @@ import BlueBox from '@/assets/BlueBox.png';
 import GrayCatInBox from '@/assets/GrayCatInBox.png';
 
 const props = defineProps(['level', 'levelId']);
-const currentLevel = ref<{ cat: any; box: any;  styles: { backgroundColor: string } } | null>(null);
+const emit = defineEmits();
 
-const levelData: Record<string, { cat: any; box: any; styles: { backgroundColor: string } }> = {
+const currentLevel = ref<{ cat: any; box: any;  styles: { backgroundColor: string; customStyle?: string } } | null>({
+  cat: null,
+  box: null,
+  styles: {
+    backgroundColor: '',
+    customStyle: '',
+  },
+});
+
+const levelData: Record<string, { cat: any; box: any; styles: { backgroundColor: string; customStyle?: string } }> = {
   1: {
     cat: BlackCat,
     box: OrangeBox,
@@ -62,16 +71,34 @@ const levelData: Record<string, { cat: any; box: any; styles: { backgroundColor:
   },
 };
 
-
-onMounted(() => {
-    const levelId = props.levelId;
-    currentLevel.value = levelData[levelId];
+const getContainerStyles = computed(() => {
+  if (currentLevel.value) {
+    const { styles } = currentLevel.value;
+    return {
+      ...styles,
+      ...(styles.customStyle ? JSON.parse(styles.customStyle) : {}),
+    };
+  }
+  return {};
 });
 
+const updateStyles = (newStyles?: any) => {
+  const levelId = props.levelId;
+  currentLevel.value = levelData[levelId];
+  currentLevel.value.styles = { 
+    ...currentLevel.value.styles, 
+    ...newStyles,
+  };
+  emit('updateStyles', currentLevel.value.styles);
+};
+
+onMounted(() => {
+    updateStyles();
+});
 </script>
 
 <template>
-   <div class="container" :style="currentLevel?.styles">
+   <div class="container" :style="getContainerStyles">
     <img  class='cat' :src="currentLevel?.cat" alt="Level cat" />
     <img class='box' :src="currentLevel?.box" alt="Level box">
   </div>
@@ -83,11 +110,13 @@ onMounted(() => {
   height: 90vh;
   background-color: rgb(78, 73, 109);
   padding: 20px;
+  position: relative;
+  display: flex;
 }
 
 .cat {
-  width: 100px;
-  height: 160px;
+  width: 82px;
+  height: 134px;
   object-fit: cover;
 }
 
@@ -95,25 +124,24 @@ onMounted(() => {
   width: 100px;
   height: 60px;
   object-fit: cover;
-  margin-bottom: 25px;
+  position: absolute;
+  top: 70px; 
+  right: 15px; 
 }
 
 @media (max-width: 768px) {
   .container {
     width: 70vh;
-  height: 70vh;
+    height: 70vh;
   }
   .cat {
   width: 70px;
   height: 120px;
-  object-fit: cover;
 }
 
 .box {
-  width: 80px;
+  width: 84px;
   height: 50px;
-  object-fit: cover;
-  margin-bottom: 20px;
 }
 }
 </style>

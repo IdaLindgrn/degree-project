@@ -2,9 +2,32 @@
 import { ref } from 'vue';
 
 const textareaValue = ref('');
+const emit = defineEmits();
 
 const handleInput = () => { 
+  const styles = {
+    ...parseStyles(textareaValue.value),
+  };
+  emit('updateStyles', { customStyle: styles });
 }
+
+
+interface Styles {
+  [key: string]: string;
+}
+
+const parseStyles = (stylesString: string): Styles => {
+  const styles: Styles = {};
+  const stylesArray = stylesString.split(';');
+  stylesArray.forEach((style) => {
+    const [property, value] = style.split(':').map((s) => s.trim());
+    if (property && value) {
+      styles[property] = value;
+    }
+  });
+  return styles;
+};
+
 </script>
 
 <template>

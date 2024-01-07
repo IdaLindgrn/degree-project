@@ -8,6 +8,10 @@ import InputField from '../../components/InputField.vue';
 const level = ref<any | null>(null);
 const route = useRoute();
 
+const handleUpdateStyles = (styles: any) => {
+  console.log('Updated styles:', styles);
+};
+
 const fetchLevel = async () => {
   try {
     const levelId = route.params.levelId;
@@ -37,10 +41,10 @@ onMounted(() => {
       <p>{{ level?.title }}</p>
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
-      <InputField />
+      <InputField @updateStyles="handleUpdateStyles" />
     </div>
     <div>
-      <Game :level="level" :levelId="route.params.levelId" />
+      <Game :level="level" @updateStyles="handleUpdateStyles" :levelId="route.params.levelId" />
     </div>
   </div>
      
