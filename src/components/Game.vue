@@ -24,6 +24,7 @@ interface LevelData {
   styles: { backgroundColor: string; customStyle?: { [key: string]: string } };
   levelCatStyling?: { [key: string]: string };
   levelBoxStyling?: { [key: string]: string }[];
+  completedStyling?: { [key: string]: string };
 }
 
 const currentLevel = ref<LevelData | null>(null);
@@ -37,6 +38,7 @@ const levelData: Record<string, LevelData> = {
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [{ top: '85px', right: '25px' }],
+    completedStyling: { justifyContent: 'flex-end' },
   },
   2: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -50,6 +52,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '110px' }, 
       { bottom: '30px', left: '200px' }
     ], 
+    completedStyling: { justifyContent: 'flex-end' },
   },
   3: {
     cats: [GrayCat, OrangeCat, BlackCat],
@@ -63,7 +66,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', right: '110px' }, 
       { bottom: '30px', right: '20px' }
     ], 
-
+    completedStyling: { justifyContent: 'flex-end' },
   },
   4: {
     cats: [BlackCat, BlackCat, OrangeCat, BlackCat, BlackCat],
@@ -79,6 +82,7 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', right: '100px' },
       { top: '85px', right: '10px' },
     ], 
+    completedStyling: { justifyContent: 'flex-end' },
   },
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -92,6 +96,7 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', left: '105px' }, 
       { top: '85px', left: '180px' },
     ], 
+    completedStyling: { justifyContent: 'flex-end' },
   },
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],
@@ -107,6 +112,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '10px' },
       { bottom: '30px', left: '95px' },
     ], 
+    completedStyling: { justifyContent: 'flex-end' },
   },
 };
 
@@ -145,6 +151,42 @@ watch(() => props.levelId, (newLevelId, oldLevelId) => {
     updateStyles();
   }
 });
+
+
+
+//Level completion
+const checkCompletion = () => {
+  if (currentLevel.value && currentLevel.value.completedStyling) {
+    const catPosition = currentLevel.value.levelCatStyling;
+
+    if (catPosition) {
+      const completionStyling = currentLevel.value.completedStyling;
+      let isLevelCompleted = true;
+
+      for (const [property, value] of Object.entries(completionStyling)) {
+        const catPropertyValue = catPosition[property];
+        const completionThreshold = 10;
+
+      if (!catPropertyValue || Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
+          isLevelCompleted = false;
+          break;
+        }
+      }
+
+      if (isLevelCompleted) {
+        console.log('Level Completed!');
+      }
+    }
+  }
+};
+
+watch(() => currentLevel.value?.levelCatStyling, checkCompletion);
+
+
+
+
+
+const isLevelCompleted = ref(false);
 
 </script>
 
