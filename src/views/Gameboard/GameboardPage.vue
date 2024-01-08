@@ -8,8 +8,14 @@ import InputField from '../../components/InputField.vue';
 const level = ref<any | null>(null);
 const route = useRoute();
 
-const handleUpdateStyles = (styles: any) => {
-  console.log('Updated styles:', styles);
+const sharedStyles = ref({ customStyle: {} });
+
+const updateStyles = (newStyles: any) => {
+  sharedStyles.value = newStyles;
+};
+
+const handleInput = (styles: any) => {
+  updateStyles(styles);
 };
 
 const fetchLevel = async () => {
@@ -41,10 +47,10 @@ onMounted(() => {
       <p>{{ level?.title }}</p>
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
-      <InputField @updateStyles="handleUpdateStyles" />
+      <InputField @updateStyles="handleInput" :sharedStyles="sharedStyles" />
     </div>
     <div>
-      <Game :level="level" @updateStyles="handleUpdateStyles" :levelId="route.params.levelId" />
+      <Game :level="level" @updateStyles="handleInput" :levelId="route.params.levelId" :sharedStyles="sharedStyles" />
     </div>
   </div>
      

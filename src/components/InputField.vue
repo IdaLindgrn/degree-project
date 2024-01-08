@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const textareaValue = ref('');
 const emit = defineEmits();
+const props = defineProps(['sharedStyles']);
+
+const inputStyleText = ref('');
 
 const handleInput = () => { 
-  const styles = {
-    ...parseStyles(textareaValue.value),
-  };
-  emit('updateStyles', { customStyle: styles });
-}
-
+  const styles = parseStyles(inputStyleText.value);  
+  props.sharedStyles.customStyle = styles;
+  emit('inputChange', styles);
+};
 
 interface Styles {
   [key: string]: string;
@@ -39,7 +39,7 @@ const parseStyles = (stylesString: string): Styles => {
       <div class="input">
         <p>#alley {</p>
         <p>display: flex;</p>
-      <textarea id="catStyleInput" v-model="textareaValue" @input="handleInput"></textarea>
+      <textarea id="catStyleInput" v-model="inputStyleText" @input="handleInput"></textarea>
     </div>
     </div>
   </div>
