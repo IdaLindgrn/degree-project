@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const emit = defineEmits();
 const props = defineProps(['sharedStyles']);
+const emit = defineEmits();
 
 const inputStyleText = ref('');
 
@@ -28,6 +28,10 @@ const parseStyles = (stylesString: string): Styles => {
   return styles;
 };
 
+const goToNextLevel = () => {
+  emit('goToNextLevel');
+};
+
 </script>
 
 <template>
@@ -41,6 +45,7 @@ const parseStyles = (stylesString: string): Styles => {
         <p>display: flex;</p>
       <textarea id="catStyleInput" v-model="inputStyleText" @input="handleInput"></textarea>
     </div>
+    <button @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
   </div>
 </template>
@@ -93,5 +98,14 @@ p {
   border: none;
   outline: none;
   color: #694971;
+}
+
+.next-level-button {
+  margin: 10px;
+  padding: 10px;
+  background-color: #694971;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 </style>

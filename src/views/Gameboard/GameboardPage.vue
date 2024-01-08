@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
 import InputField from '../../components/InputField.vue';
+import router from '../../router/routes';
+import CompletionModal from '../../components/CompletionModal.vue';
 
 const level = ref<any | null>(null);
 const route = useRoute();
-
 const sharedStyles = ref({ customStyle: {} });
+const showCompletionModal = ref(false);
 
 const updateStyles = (newStyles: any) => {
   sharedStyles.value = newStyles;
@@ -31,8 +33,23 @@ const fetchLevel = async () => {
   }
 };
 
+const goToNextLevel = () => {
+  const nextLevelId = level.value.id + 1; 
+  if (nextLevelId === 7) {
+    showCompletionModal.value = true;
+  } else {
+  router.push({ name: 'Gameboard', params: { levelId: nextLevelId.toString() } });
+  }
+};
+
 onMounted(() => {
   fetchLevel();
+});
+
+watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
+  if (newLevelId !== oldLevelId) {
+    fetchLevel();
+  }
 });
 </script>
 
@@ -47,7 +64,7 @@ onMounted(() => {
       <p>{{ level?.title }}</p>
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
-      <InputField @updateStyles="handleInput" :sharedStyles="sharedStyles" />
+      <InputField @updateStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel" />
     </div>
     <div>
       <Game :level="level" @updateStyles="handleInput" :levelId="route.params.levelId" :sharedStyles="sharedStyles" />
@@ -58,6 +75,7 @@ onMounted(() => {
     <div v-else>
       <p>Loading...</p>
     </div>
+    <CompletionModal v-if="showCompletionModal" />
   </div>
 </template>
 

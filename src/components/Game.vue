@@ -23,7 +23,7 @@ interface LevelData {
   boxes: any[];
   styles: { backgroundColor: string; customStyle?: { [key: string]: string } };
   levelCatStyling?: { [key: string]: string };
-  levelBoxStyling?: { [key: string]: string };
+  levelBoxStyling?: { [key: string]: string }[];
 }
 
 const currentLevel = ref<LevelData | null>(null);
@@ -35,8 +35,8 @@ const levelData: Record<string, LevelData> = {
     styles: {
       backgroundColor: 'rgb(78, 73, 109)',
     },
-    levelCatStyling: { top: '13px', left: '10px' },
-    levelBoxStyling: { top: '80px', left: '270px' },
+    levelCatStyling: { top: '10px', left: '5px' },
+    levelBoxStyling: [{ top: '85px', right: '25px' }],
   },
   2: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -45,8 +45,11 @@ const levelData: Record<string, LevelData> = {
       backgroundColor: 'rgb(10, 100, 60)',
     },
     levelCatStyling: { top: '10px', left: '5px' },
-    levelBoxStyling: { top: '300px', left: '20px' }, 
-
+    levelBoxStyling: [
+      { bottom: '30px', left: '20px' }, 
+      { bottom: '30px', left: '110px' }, 
+      { bottom: '30px', left: '200px' }
+    ], 
   },
   3: {
     cats: [GrayCat, OrangeCat, BlackCat],
@@ -54,8 +57,12 @@ const levelData: Record<string, LevelData> = {
     styles: {
       backgroundColor: 'rgb(10, 100, 100)',
     },
-    levelCatStyling: { top: '50px', left: '50px' },
-    levelBoxStyling: { top: '100px', left: '100px' },
+    levelCatStyling: { top: '10px', left: '5px' },
+    levelBoxStyling: [
+      { bottom: '30px', right: '200px' }, 
+      { bottom: '30px', right: '110px' }, 
+      { bottom: '30px', right: '20px' }
+    ], 
 
   },
   4: {
@@ -65,8 +72,13 @@ const levelData: Record<string, LevelData> = {
       backgroundColor: 'rgb(78, 73, 109)',
     },
     levelCatStyling: { top: '50px', left: '50px' },
-    levelBoxStyling: { top: '100px', left: '100px' },
-
+    levelBoxStyling: [
+      { top: '85px', left: '10px' }, 
+      { top: '85px', left: '100px' }, 
+      { bottom: '30px', right:'140px' },
+      { top: '85px', right: '100px' },
+      { top: '85px', right: '10px' },
+    ], 
   },
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -74,9 +86,12 @@ const levelData: Record<string, LevelData> = {
     styles: {
       backgroundColor: 'rgb(10, 100, 60)',
     },
-    levelCatStyling: { top: '50px', left: '50px' },
-    levelBoxStyling: { top: '100px', left: '100px' },
-
+    levelCatStyling: { top: '15px', left: '10px' },
+    levelBoxStyling: [
+      { top: '85px', left: '25px' }, 
+      { top: '85px', left: '105px' }, 
+      { top: '85px', left: '180px' },
+    ], 
   },
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],
@@ -84,8 +99,14 @@ const levelData: Record<string, LevelData> = {
     styles: {
       backgroundColor: 'rgb(10, 100, 100)',
     },
-    levelCatStyling: { top: '50px', left: '50px' },
-    levelBoxStyling: { top: '100px', left: '100px' },
+    levelCatStyling: { top: '15px', left: '-18px' },
+    levelBoxStyling: [
+      { top: '85px', left: '1px' }, 
+      { top: '85px', left: '75px' }, 
+      { top: '85px', left: '150px' },
+      { bottom: '30px', left: '10px' },
+      { bottom: '30px', left: '95px' },
+    ], 
   },
 };
 
@@ -114,9 +135,15 @@ onMounted(() => {
     updateStyles();
 });
 
-watch(() => props.sharedStyles.customStyle, (newStyles) => {
-  console.log('Received updated styles in Game.vue:', newStyles);
-  updateStyles(newStyles);
+// watch(() => props.sharedStyles.customStyle, (newStyles) => {
+//   console.log('Received updated styles in Game.vue:', newStyles);
+//   updateStyles(newStyles);
+// });
+
+watch(() => props.levelId, (newLevelId, oldLevelId) => {
+  if (newLevelId !== oldLevelId) {
+    updateStyles();
+  }
 });
 
 </script>
@@ -127,7 +154,7 @@ watch(() => props.sharedStyles.customStyle, (newStyles) => {
     <img  class='cat' :src="cat" :style="{ ...currentLevel?.levelCatStyling }" alt="Level cat" />
     </div>
     <div v-for="(box, index) in currentLevel?.boxes" :key="index">
-    <img class='box' :src="box" :style="{ ...currentLevel?.levelBoxStyling }" alt="Level box">
+    <img class='box' :src="box" :style="{...currentLevel?.levelBoxStyling && currentLevel?.levelBoxStyling[index] }" alt="Level box">
   </div>
   </div>
 </template>
@@ -143,19 +170,15 @@ watch(() => props.sharedStyles.customStyle, (newStyles) => {
 }
 
 .cat {
-  width: 82px;
+  width: 85px;
   height: 134px;
-  object-fit: cover;
   position: relative;
 }
 
 .box {  
   width: 100px;
   height: 60px;
-  object-fit: cover;
   position: absolute;
-  top: 70px; 
-  right: 15px; 
 }
 
 @media (max-width: 768px) {
@@ -164,7 +187,7 @@ watch(() => props.sharedStyles.customStyle, (newStyles) => {
     height: 70vh;
   }
   .cat {
-  width: 70px;
+  width: 75px;
   height: 120px;
 }
 
