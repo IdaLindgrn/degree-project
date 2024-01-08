@@ -82,7 +82,7 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 <style scoped>
 .gameboard {
     background-color: #2d1b5b;
-    height: 100vh;
+    min-height: 100vh;
     text-align: left;
     color: white; 
     padding: 30px;
@@ -99,7 +99,7 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
   width: 100%; 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1025px) {
   .game-container {
     flex-direction: column-reverse;
     align-items: center;

@@ -70,30 +70,29 @@ const navigateToGameboard = (levelId: number) => {
 }
 .body {
   background-color: #2d1b5b;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 40px;
 }
 .level-container {
   border: 2px solid #cccccc;
   padding: 10px;
   text-align: center;
   background-color: #2d1b5b;
-  margin: 30px;
   color: #fff;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1025px) {
   .body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 30px;
   }
 }
 
-@media only screen and (max-width: 767px) {
-
-  .level-container {
-    display: block;
-    margin-top: 0;
+@media only screen and (max-width: 1025px) {
+  .body {
+    display: grid;
+    gap: 30px;
   }
 }
     </style>

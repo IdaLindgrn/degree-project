@@ -112,7 +112,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '10px' },
       { bottom: '30px', left: '95px' },
     ], 
-        completedStyling: { justifyContent: 'flex-end' },
+        completedStyling: { 'flex-wrap': 'wrap' },
   },
 };
 
@@ -204,38 +204,50 @@ const isLevelCompleted = ref(false);
 <style scoped>
 .container {
   background-color: rgb(78, 73, 109);
-  width: 90vh;
-  height: 90vh;
+  width: 80vh;
+  height: 80vh;
   padding: 20px;
   position: relative;
   display: flex;
 }
 
 .cat {
-  width: 85px;
-  height: 134px;
+  width: 105px;
+  height: 170px;
   position: relative;
 }
 
 .box {  
-  width: 100px;
-  height: 60px;
+  width: 110px;
+  height: 65px;
   position: absolute;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1025px) {
   .container {
-    width: 70vh;
-    height: 70vh;
+    width: 70vw;
+    height: 70vw;
   }
   .cat {
-  width: 75px;
-  height: 120px;
+  width: 90px;
+  height: 145px;
 }
 
 .box {
-  width: 84px;
+  width: 80px;
   height: 50px;
+}
+}
+
+@media (max-width: 700px) {
+  .cat {
+  width: 43px;
+  height: 70px;
+}
+
+.box {
+  width: 47px;
+  height: 25px;
 }
 }
 </style>

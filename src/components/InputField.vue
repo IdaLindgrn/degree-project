@@ -52,9 +52,11 @@ const goToNextLevel = () => {
 
 <style scoped>
 .field {
+  margin: 2vw;
   background-color: rgb(189, 185, 213);
   display: flex;
   flex-direction: column;
+  width: 40vw;
 }
 
 p {
@@ -107,5 +109,11 @@ p {
   color: white;
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 1025px) {
+  .field {
+    width: 85vw;
+  }
 }
 </style>
