@@ -21,7 +21,7 @@ const emit = defineEmits();
 interface LevelData {
   cats: any[];
   boxes: any[];
-  styles: { backgroundColor: string; customStyle?: { [key: string]: string } };
+  styles: { customStyle?: { [key: string]: string } };
   levelCatStyling?: { [key: string]: string };
   levelBoxStyling?: { [key: string]: string }[];
   completedStyling?: { [key: string]: string };
@@ -34,7 +34,7 @@ const levelData: Record<string, LevelData> = {
     cats: [BlackCat],
     boxes: [OrangeBox],
     styles: {
-      backgroundColor: 'rgb(78, 73, 109)',
+      customStyle: {},
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [{ top: '85px', right: '25px' }],
@@ -44,7 +44,7 @@ const levelData: Record<string, LevelData> = {
     cats: [BlackCat, OrangeCat, GrayCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
     styles: {
-      backgroundColor: 'rgb(10, 100, 60)',
+      customStyle: {},
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [
@@ -52,13 +52,13 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '110px' }, 
       { bottom: '30px', left: '200px' }
     ], 
-    completedStyling: { justifyContent: 'flex-end' },
+    completedStyling: { 'align-items': 'flex-end' },
   },
   3: {
     cats: [GrayCat, OrangeCat, BlackCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
     styles: {
-      backgroundColor: 'rgb(10, 100, 100)',
+      customStyle: {},
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [
@@ -66,13 +66,13 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', right: '110px' }, 
       { bottom: '30px', right: '20px' }
     ], 
-    completedStyling: { justifyContent: 'flex-end' },
+    completedStyling: { 'flex-direction': 'row-reverse', 'align-items': 'flex-end' },
   },
   4: {
     cats: [BlackCat, BlackCat, OrangeCat, BlackCat, BlackCat],
     boxes: [OrangeBox, OrangeBox, GreenBox, OrangeBox, OrangeBox],
     styles: {
-      backgroundColor: 'rgb(78, 73, 109)',
+      customStyle: {},
     },
     levelCatStyling: { top: '50px', left: '50px' },
     levelBoxStyling: [
@@ -82,13 +82,13 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', right: '100px' },
       { top: '85px', right: '10px' },
     ], 
-    completedStyling: { justifyContent: 'flex-end' },
+    completedStyling: { 'align-self': 'flex-end' },
   },
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
     boxes: [OrangeBox, BlueBox, GreenBox],
     styles: {
-      backgroundColor: 'rgb(10, 100, 60)',
+      customStyle: {},
     },
     levelCatStyling: { top: '15px', left: '10px' },
     levelBoxStyling: [
@@ -96,13 +96,13 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', left: '105px' }, 
       { top: '85px', left: '180px' },
     ], 
-    completedStyling: { justifyContent: 'flex-end' },
+    completedStyling: { order: '1' },
   },
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],
     boxes: [BlueBox, OrangeBox, OrangeBox, OrangeBox, GreenBox],
     styles: {
-      backgroundColor: 'rgb(10, 100, 100)',
+      customStyle: {},
     },
     levelCatStyling: { top: '15px', left: '-18px' },
     levelBoxStyling: [
@@ -112,7 +112,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '10px' },
       { bottom: '30px', left: '95px' },
     ], 
-    completedStyling: { justifyContent: 'flex-end' },
+        completedStyling: { justifyContent: 'flex-end' },
   },
 };
 
