@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const props = defineProps(['sharedStyles']);
+const props = defineProps(['isLevelCompleted']);
+//  'sharedStyles',
 const emit = defineEmits();
 
 const inputStyleText = ref('');
 
 const handleInput = () => { 
-  const styles = parseStyles(inputStyleText.value);  
-  props.sharedStyles.customStyle = styles;
-  emit('inputChange', styles);
+  // const styles = parseStyles(inputStyleText.value); 
+  // console.log('Styles emitted:', styles); 
+  // emit('updateStyles', styles);
+  emit('updateCustomStyles', inputStyleText.value);
 };
 
 interface Styles {
@@ -29,8 +31,16 @@ const parseStyles = (stylesString: string): Styles => {
 };
 
 const goToNextLevel = () => {
-  emit('goToNextLevel');
+  console.log('Go to next level clicked');
+  console.log('isLevelCompleted in InputField.vue:', props.isLevelCompleted);
+  if (props.isLevelCompleted) {
+    emit('requestNextLevel');
+  } else {
+    console.log('Level not completed yet');
+  }
 };
+
+
 
 </script>
 
@@ -45,7 +55,7 @@ const goToNextLevel = () => {
         <p>display: flex;</p>
       <textarea id="catStyleInput" v-model="inputStyleText" @input="handleInput"></textarea>
     </div>
-    <button @click="goToNextLevel" class="next-level-button">Next Level</button>
+    <button :style="{ backgroundColor: !props.isLevelCompleted ? 'gray' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
   </div>
 </template>

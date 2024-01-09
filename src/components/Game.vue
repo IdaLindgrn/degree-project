@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, reactive } from 'vue';
 
 // images
 import BlackCat from '@/assets/BlackCat.png';
@@ -13,28 +13,31 @@ import OrangeCatInBox from '@/assets/OrangeCatInBox.png';
 import GrayCat from '@/assets/GrayCat.png';
 import BlueBox from '@/assets/BlueBox.png';
 import GrayCatInBox from '@/assets/GrayCatInBox.png';
-import { faLineChart } from '@fortawesome/free-solid-svg-icons';
 
-const props = defineProps(['level', 'levelId', 'sharedStyles']);
+const isLevelCompleted = ref(false);
+const props = defineProps(['level', 'levelId', 'sharedStyles', 'isLevelCompleted']);
 const emit = defineEmits();
+
+const sharedStyles = ref({ customStyle: reactive({}) });
+const currentLevel = ref<LevelData | null>(null);
+
 
 interface LevelData {
   cats: any[];
   boxes: any[];
-  styles: { customStyle?: { [key: string]: string } };
+  styles: { customStyle: { [key: string]: string } };
   levelCatStyling?: { [key: string]: string };
   levelBoxStyling?: { [key: string]: string }[];
-  completedStyling?: { [key: string]: string };
+  completedStyling: { [key: string]: string };
 }
 
-const currentLevel = ref<LevelData | null>(null);
 
 const levelData: Record<string, LevelData> = {
   1: {
     cats: [BlackCat],
     boxes: [OrangeBox],
     styles: {
-      customStyle: {},
+      customStyle: {  },
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [{ top: '85px', right: '25px' }],
@@ -127,35 +130,18 @@ const getContainerStyles = computed(() => {
   return {};
 });
 
-const updateStyles = (newStyles?: { customStyle?: { [key: string]: string } }) => {
+
+const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: string]: string } }) => {
+  console.log('Styles received in Game.vue:', newStyles);
   const levelId = props.levelId;
   currentLevel.value = levelData[levelId];
 
-  if (newStyles && newStyles.customStyle) {
-    currentLevel.value.styles.customStyle = newStyles.customStyle;
-  }
-  emit('updateStyles', getContainerStyles.value);
-};
+  currentLevel.value.styles.customStyle = {
+    ...(currentLevel.value.styles.customStyle || {}),
+    ...(newStyles?.customStyle || {}),
+  };
 
-onMounted(() => {
-    updateStyles();
-});
-
-// watch(() => props.sharedStyles.customStyle, (newStyles) => {
-//   console.log('Received updated styles in Game.vue:', newStyles);
-//   updateStyles(newStyles);
-// });
-
-watch(() => props.levelId, (newLevelId, oldLevelId) => {
-  if (newLevelId !== oldLevelId) {
-    updateStyles();
-  }
-});
-
-
-
-//Level completion
-const checkCompletion = () => {
+  // Check completion
   if (currentLevel.value && currentLevel.value.completedStyling) {
     const catPosition = currentLevel.value.levelCatStyling;
 
@@ -167,26 +153,43 @@ const checkCompletion = () => {
         const catPropertyValue = catPosition[property];
         const completionThreshold = 10;
 
-      if (!catPropertyValue || Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
+        if (!catPropertyValue || Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
           isLevelCompleted = false;
+          console.log('Level not completed');
           break;
         }
       }
 
+      // If the level is completed, emit an event
       if (isLevelCompleted) {
-        console.log('Level Completed!');
+        console.log('Level completed');
+        emit('levelCompletedChanged', true);
       }
     }
   }
+
+  emit('updateStyles', { customStyle: getContainerStyles.value });
 };
 
-watch(() => currentLevel.value?.levelCatStyling, checkCompletion);
+onMounted(() => {
+  updateStylesAndCheckCompletion();
+});
 
+watch(() => props.levelId, (newLevelId, oldLevelId) => {
+  if (newLevelId !== oldLevelId) {
+    updateStylesAndCheckCompletion();
+  }
+});
 
+watch(() => isLevelCompleted.value, (newValue) => {
+  console.log('isLevelCompleted changed in Game.vue:', newValue);
+  emit('levelCompletedChanged', newValue);
+});
 
-
-
-const isLevelCompleted = ref(false);
+watch(() => sharedStyles.value.customStyle, (newStyles) => {
+  console.log('hjälp')
+  updateStylesAndCheckCompletion({ customStyle: newStyles });
+});
 
 </script>
 
@@ -251,3 +254,73 @@ const isLevelCompleted = ref(false);
 }
 }
 </style>
+
+// const updateStyles = (newStyles?: { customStyle?: { [key: string]: string } }) => {
+  //   console.log('Styles received in Game.vue:');
+  //   console.log('Styles received in Game.vue:', newStyles);
+  //   const levelId = props.levelId;
+  //   currentLevel.value = levelData[levelId];
+  
+  //   if (newStyles && newStyles.customStyle) {
+  //     currentLevel.value.styles.customStyle = newStyles.customStyle;
+  //     console.log('Styles updated in Game.vue:', newStyles.customStyle);
+  //   }
+  //   emit('updateStyles', { customStyle: getContainerStyles.value });
+  // };
+  
+  // onMounted(() => {
+  //     updateStyles();
+  // });
+  
+  
+  // watch(() => props.levelId, (newLevelId, oldLevelId) => {
+  //   if (newLevelId !== oldLevelId) {
+  //     updateStyles();
+  //   }
+  // });
+  
+  
+  // //Level completion
+  
+  // const isLevelCompleted = ref(false);
+  
+  // const checkCompletion = () => {
+  //   if (currentLevel.value && currentLevel.value.completedStyling) {
+  //     const catPosition = currentLevel.value.levelCatStyling;
+  
+  //     if (catPosition) {
+  //       const completionStyling = currentLevel.value.completedStyling;
+  //       let isLevelCompleted = true;
+  
+  //       for (const [property, value] of Object.entries(completionStyling)) {
+  //         const catPropertyValue = catPosition[property];
+  //         const completionThreshold = 10;
+  
+  //         if (!catPropertyValue || Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
+  //           isLevelCompleted = false;
+  //           console.log('Level not completed');
+  //           break;
+  //         }
+  //       }
+  //       if (isLevelCompleted) {
+  //         console.log('Level completed');
+  //         emit('levelCompletedChanged', true);
+  //       }
+  //     }
+  //   }
+  // };
+  
+  
+  // watch(() => currentLevel.value?.levelCatStyling, checkCompletion);
+  
+  // // listen for a input from the textarea
+  // // watch(() => sharedStyles.value.customStyle, (newStyles) => {
+  // //   updateStyles(newStyles);
+  // //   checkCompletion(); 
+  // // });
+  
+  // watch(() => isLevelCompleted.value, (newValue) => {
+  //   console.log('isLevelCompleted changed in Game.vue:', newValue);
+  //   emit('levelCompletedChanged', newValue);
+  // });
+  

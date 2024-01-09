@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, reactive } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
@@ -9,16 +9,17 @@ import CompletionModal from '../../components/CompletionModal.vue';
 
 const level = ref<any | null>(null);
 const route = useRoute();
-const sharedStyles = ref({ customStyle: {} });
+const sharedStyles = ref({ customStyle: reactive({}) });
 const showCompletionModal = ref(false);
+const isLevelCompleted = ref();
 
-const updateStyles = (newStyles: any) => {
-  sharedStyles.value = newStyles;
+const handleInput = (newStyles: any) => {
+  console.log('Styles received in GameboardPage:', newStyles);
+  sharedStyles.value.customStyle = newStyles.customStyle || {};
+  console.log(sharedStyles.value.customStyle)
 };
 
-const handleInput = (styles: any) => {
-  updateStyles(styles);
-};
+
 
 const fetchLevel = async () => {
   try {
@@ -38,7 +39,9 @@ const goToNextLevel = () => {
   if (nextLevelId === 7) {
     showCompletionModal.value = true;
   } else {
-  router.push({ name: 'Gameboard', params: { levelId: nextLevelId.toString() } });
+    if (isLevelCompleted.value) {
+      router.push({ name: 'Gameboard', params: { levelId: nextLevelId.toString() } });
+    }
   }
 };
 
@@ -66,10 +69,10 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
     </div>
-      <InputField @updateStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel" />
+      <InputField @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel" :isLevelCompleted="isLevelCompleted"/>
     </div>
     <div>
-      <Game :level="level" @updateStyles="handleInput" :levelId="route.params.levelId" :sharedStyles="sharedStyles" />
+      <Game :level="level" :levelId="route.params.levelId" :sharedStyles="sharedStyles" :isLevelCompleted="isLevelCompleted" :updateStyles="handleInput"/>
     </div>
   </div>
      
