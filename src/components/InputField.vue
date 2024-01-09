@@ -57,6 +57,7 @@ const goToNextLevel = () => {
   display: flex;
   flex-direction: column;
   width: 40vw;
+  position: relative;
 }
 
 p {
@@ -72,6 +73,7 @@ p {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  position: relative;
 }
 
 .line-numbers {
@@ -106,9 +108,13 @@ p {
   margin: 10px;
   padding: 10px;
   background-color: #694971;
+  border-radius: 10px;
   color: white;
   border: none;
   cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  right: 20px; 
 }
 
 @media (max-width: 1025px) {
