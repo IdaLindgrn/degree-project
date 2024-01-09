@@ -61,9 +61,11 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
         </router-link>
         <div class="game-container">
     <div class="level-container">
+      <div class="level-text">
       <p>{{ level?.title }}</p>
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
+    </div>
       <InputField @updateStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel" />
     </div>
     <div>
@@ -97,6 +99,10 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 
   .level-container {
   width: 100%; 
+}
+
+.level-text {
+  padding: 30px;
 }
 
 @media (max-width: 1025px) {
