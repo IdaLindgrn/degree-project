@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive } from 'vue';
+import { ref, onMounted, watch, reactive, watchEffect } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
@@ -13,11 +13,13 @@ const sharedStyles = ref({ customStyle: reactive({}) });
 const showCompletionModal = ref(false);
 const isLevelCompleted = ref();
 
-const handleInput = (newStyles: any) => {
+const handleInput = (newStyles: { customStyle: { [key: string]: string } }) => {
   console.log('Styles received in GameboardPage:', newStyles);
   sharedStyles.value.customStyle = newStyles.customStyle || {};
-  updateStylesAndCheckCompletion();
-  console.log(sharedStyles.value.customStyle)
+  const levelId = route.params.levelId as string;
+  localStorage.setItem(`customStyle_${levelId}`, JSON.stringify(newStyles.customStyle || {}));
+
+  updateStylesAndCheckCompletion(newStyles);
 };
 
 // added
@@ -134,15 +136,22 @@ const levelData: Record<string, LevelData> = {
 
 const currentLevel = ref<LevelData | null>(null);
 
-const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: string]: string } }) => {
+const updateStylesAndCheckCompletion = async (newStyles?: { customStyle?: { [key: string]: string } }) => {
   console.log('Styles received in Game.vue:', newStyles);
-  const levelId = route.params.levelId as string;
-  currentLevel.value = levelData[levelId];
-  console.log(route.params.level);
-  currentLevel.value!.styles.customStyle = {
-    ...(currentLevel.value!.styles.customStyle || {}),
-    ...(newStyles?.customStyle || {}),
-  };
+  const levelId = route.params.levelId as string;          // extract current levelId
+  currentLevel.value = levelData[levelId];                 // getting the data from current level from the levelData object
+
+  const savedStyling = localStorage.getItem(`customStyle_${levelId}`);
+  if (savedStyling) {
+    currentLevel.value!.styles.customStyle = JSON.parse(savedStyling);
+  }
+
+  if (newStyles?.customStyle) {
+    currentLevel.value!.styles.customStyle = {
+      ...(currentLevel.value!.styles.customStyle || {}),
+      ...newStyles.customStyle,
+    };
+  }
 
   // Check completion
   if (currentLevel.value && currentLevel.value.completedStyling) {
@@ -174,9 +183,20 @@ const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: stri
 onMounted(() => {
   updateStylesAndCheckCompletion();
 });
-//
 
+// watchEffect(() => {
+//   console.log('Hollla')
+//   const savedStyling = localStorage.getItem(`customStyle_${route.params.levelId}`);
+//   if (savedStyling) {
+//     sharedStyles.value.customStyle = JSON.parse(savedStyling);
+//   }
+// });
 
+watch(() => localStorage.getItem('customStyle_1'), (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    updateStylesAndCheckCompletion();
+  }
+});
 
 const fetchLevel = async () => {
   try {

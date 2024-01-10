@@ -7,13 +7,23 @@ const emit = defineEmits();
 
 const inputStyleText = ref('');
 
-const handleInput = () => { 
-  emit('updateCustomStyles', inputStyleText.value);
+const convertInputToCustomStyle = () => {
+  const userInput = inputStyleText.value;
+  try {
+    const customStyle = JSON.parse(`{ ${userInput} }`);
+    emit('updateCustomStyles', { customStyle });
+  } catch (error) {
+    const keyValuePairs = userInput.split(';')
+      .map(pair => pair.trim())
+      .filter(pair => pair.length > 0)
+      .map(pair => {
+        const [property, value] = pair.split(':').map(part => part.trim());
+        return { [property]: value };
+      });
+      const customStyle = Object.assign({}, ...keyValuePairs);
+      emit('updateCustomStyles', { customStyle });
+  }
 };
-
-interface Styles {
-  [key: string]: string;
-}
 
 const goToNextLevel = () => {
   console.log('Go to next level clicked');
@@ -24,9 +34,6 @@ const goToNextLevel = () => {
     console.log('Level not completed yet');
   }
 };
-
-
-
 </script>
 
 <template>
@@ -38,7 +45,7 @@ const goToNextLevel = () => {
       <div class="input">
         <p>#alley {</p>
         <p>display: flex;</p>
-      <textarea id="catStyleInput" v-model="inputStyleText" @input="handleInput"></textarea>
+      <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
     </div>
     <button :style="{ backgroundColor: !props.isLevelCompleted ? 'gray' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
