@@ -8,27 +8,12 @@ const emit = defineEmits();
 const inputStyleText = ref('');
 
 const handleInput = () => { 
-  // const styles = parseStyles(inputStyleText.value); 
-  // console.log('Styles emitted:', styles); 
-  // emit('updateStyles', styles);
   emit('updateCustomStyles', inputStyleText.value);
 };
 
 interface Styles {
   [key: string]: string;
 }
-
-const parseStyles = (stylesString: string): Styles => {
-  const styles: Styles = {};
-  const stylesArray = stylesString.split(';');
-  stylesArray.forEach((style) => {
-    const [property, value] = style.split(':').map((s) => s.trim());
-    if (property && value) {
-      styles[property] = value;
-    }
-  });
-  return styles;
-};
 
 const goToNextLevel = () => {
   console.log('Go to next level clicked');
