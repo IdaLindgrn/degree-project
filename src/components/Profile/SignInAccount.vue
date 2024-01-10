@@ -57,14 +57,19 @@ const closePopup = () => {
 
 <template>
    <div>
-    <form @submit.prevent="signInUser">
-    <label for="emailOrUsername">Email:</label>
-    <input id="emailOrUsername" v-model="email" type="text" placeholder="Enter your email" required />
+    <form @submit.prevent="signInUser" class="registration-form">
+      <p style="font-size: larger;">Login to your account</p>
+    <div class="form-group">
+     <label for="emailOrUsername">Email:</label>
+     <input id="emailOrUsername" v-model="email" type="text" placeholder="Enter your email" required />
+    </div>
 
+  <div class="form-group">
     <label for="password">Password:</label>
     <input id="password" v-model="password" type="password"  placeholder="Enter your password" required />
+  </div>
 
-    <button type="submit">Sign In</button>
+    <button type="submit" class="submit-button">Login</button>
   </form>
 
   <div v-if="showPopup" class="popup">
@@ -74,7 +79,7 @@ const closePopup = () => {
    </div>
   </template>
 
-<style scoped>
+<style>
 .popup {
   position: fixed;
   top: 50%;

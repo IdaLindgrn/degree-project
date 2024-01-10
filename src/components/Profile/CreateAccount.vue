@@ -39,23 +39,68 @@ const registerUser = async () => {
 </script>
 
 <template>
-    <form @submit.prevent="registerUser">
+    <form @submit.prevent="registerUser" class="registration-form">
+      <p style="font-size: larger;">Create your account</p>
+    <div class="form-group">
+      <label>Profile Picture URL:</label>
+      <input v-model="profilePicture" type="url" placeholder="Profile picture" />
+    </div>
+
+    <div class="form-group">
       <label>Email:</label>
       <input v-model="email" type="email" placeholder="Enter your email" required />
+    </div>
   
+    <div class="form-group">
       <label>Username:</label>
       <input v-model="username" type="text" placeholder="Enter your username" required />
+    </div>
   
+    <div class="form-group">
       <label>Password:</label>
       <input v-model="password" type="password" placeholder="Enter your password" required />
-  
-      <label>Profile Picture URL:</label>
-      <input v-model="profilePicture" type="url" placeholder="Enter the URL of your profile picture" />
-  
-      <button type="submit">Register</button>
+    </div>
+
+      <button type="submit" class="submit-button">Create account</button>
     </form>
   </template>
   
-  <style scoped>
+  <style>
+  .registration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 2px;
+  box-sizing: border-box;
+  background-color: #D9D9D9;
+  border: none;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #2d1b5b;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 170px;
+}
   </style>
   
