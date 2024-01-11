@@ -11,14 +11,21 @@ const level = ref<any | null>(null);
 const route = useRoute();
 const sharedStyles = ref({ customStyle: reactive({}) });
 const showCompletionModal = ref(false);
-const isLevelCompleted = ref();
+const isLevelCompleted = ref(false);
+
+const containerRef = ref(null);
+
+const handleContainerRef = (ref: any) => {
+  containerRef.value = ref;
+  updateStylesAndCheckCompletion();
+};
+
 
 const handleInput = (newStyles: { customStyle: { [key: string]: string } }) => {
   console.log('Styles received in GameboardPage:', newStyles);
   sharedStyles.value.customStyle = newStyles.customStyle || {};
   const levelId = route.params.levelId as string;
   localStorage.setItem(`customStyle_${levelId}`, JSON.stringify(newStyles.customStyle || {}));
-
   updateStylesAndCheckCompletion(newStyles);
 };
 
@@ -133,10 +140,9 @@ const levelData: Record<string, LevelData> = {
   },
 };
 
-
 const currentLevel = ref<LevelData | null>(null);
 
-const updateStylesAndCheckCompletion = async (newStyles?: { customStyle?: { [key: string]: string } }) => {
+const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: string]: string } }) => {
   console.log('Styles received in Game.vue:', newStyles);
   const levelId = route.params.levelId as string;          // extract current levelId
   currentLevel.value = levelData[levelId];                 // getting the data from current level from the levelData object
@@ -152,35 +158,35 @@ const updateStylesAndCheckCompletion = async (newStyles?: { customStyle?: { [key
       ...newStyles.customStyle,
     };
   }
+  // Check completion based on customStyle in localStorage
+  if (currentLevel.value && currentLevel.value.completedStyling && containerRef.value) {
+    const containerElement = containerRef.value;
+    const computedStyles = getComputedStyle(containerElement);
 
-  // Check completion
-  if (currentLevel.value && currentLevel.value.completedStyling) {
-    const catPosition = currentLevel.value.levelCatStyling;
+    isLevelCompleted.value = true;
 
-    if (catPosition) {
-      const completionStyling = currentLevel.value.completedStyling;
-      let isLevelCompleted = true;
+    for (const [property, value] of Object.entries(currentLevel.value.completedStyling)) {
+      const catPropertyValue = computedStyles.getPropertyValue(property).trim();
+      const completionThreshold = 10;
 
-      for (const [property, value] of Object.entries(completionStyling)) {
-        const catPropertyValue = catPosition[property];
-        const completionThreshold = 10;
-
-        if (!catPropertyValue || Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
-          isLevelCompleted = false;
-          console.log('Level not completed');
-          break;
-        }
-      }
-      if (isLevelCompleted) {
-        console.log('Level completed');
+      if (Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
+        isLevelCompleted.value = false;
+        console.log('Level not completed');
+        break;
       }
     }
-  }
 
+    if (isLevelCompleted) {
+      console.log(isLevelCompleted);
+      console.log('Level completed');
+    }
+  }
   sharedStyles.value.customStyle = currentLevel.value!.styles.customStyle;
 };
 
+
 onMounted(() => {
+  fetchLevel();
   updateStylesAndCheckCompletion();
 });
 
@@ -192,11 +198,13 @@ onMounted(() => {
 //   }
 // });
 
-watch(() => localStorage.getItem('customStyle_1'), (newVal, oldVal) => {
-  if (newVal !== oldVal) {
-    updateStylesAndCheckCompletion();
-  }
-});
+// funkar inte
+// watch(() => localStorage, (newVal, oldVal) => {
+//   console.log('Hola')
+//   if (newVal.customStyle_1 !== oldVal.customStyle_1) {
+//     updateStylesAndCheckCompletion();
+//   }
+// });
 
 const fetchLevel = async () => {
   try {
@@ -213,13 +221,12 @@ const fetchLevel = async () => {
 
 const goToNextLevel = () => {
   const nextLevelId = level.value.id + 1; 
+  console.log(nextLevelId)
   if (nextLevelId === 7) {
     showCompletionModal.value = true;
   } else {
-    if (isLevelCompleted.value) {
       router.push({ name: 'Gameboard', params: { levelId: nextLevelId.toString() } });
     }
-  }
 };
 
 onMounted(() => {
@@ -246,10 +253,10 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
     </div>
-      <InputField @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel" :isLevelCompleted="isLevelCompleted"/>
+      <InputField :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
     </div>
     <div>
-      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="sharedStyles" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion"/>
+      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="sharedStyles" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
     </div>
   </div>
      

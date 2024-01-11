@@ -4,6 +4,7 @@ const isLevelCompleted = ref(false);
 const props = defineProps(['level', 'levelId', 'sharedStyles', 'isLevelCompleted', 'updateFunction' ]);
 const emit = defineEmits();
 
+const containerRef = ref(null);
 const sharedStyles = ref({ customStyle: reactive({}) });
 
 
@@ -20,10 +21,14 @@ const getContainerStyles = computed(() => {
   return {};
 });
 
+onMounted(() => {
+  emit('containerRef', containerRef.value);
+});
+
 </script>
 
 <template>
-   <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles">
+   <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles" ref="containerRef">
     <div v-for="(cat, index) in props.level?.cats" :key="index">
     <img  class='cat' :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />
     </div>

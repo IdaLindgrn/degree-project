@@ -2,10 +2,15 @@
 import { ref, watch } from 'vue';
 
 const props = defineProps(['isLevelCompleted']);
+console.log(props.isLevelCompleted)
 //  'sharedStyles',
 const emit = defineEmits();
 
 const inputStyleText = ref('');
+
+watch(() => props.isLevelCompleted, (newValue) => {
+  console.log('isLevelCompleted in InputField.vue:', newValue);
+});
 
 const convertInputToCustomStyle = () => {
   const userInput = inputStyleText.value;
@@ -49,6 +54,7 @@ const goToNextLevel = () => {
     </div>
     <button :style="{ backgroundColor: !props.isLevelCompleted ? 'gray' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
+    
   </div>
 </template>
 
