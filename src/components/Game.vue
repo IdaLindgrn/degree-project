@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 
-const isLevelCompleted = ref(false);
 const props = defineProps(['level', 'levelId', 'sharedStyles', 'isLevelCompleted', 'updateFunction' ]);
 const emit = defineEmits();
 const containerRef = ref(null);
-
 
 const getContainerStyles = computed(() => {
   const level = props.level?.value || props.level;
@@ -20,14 +18,14 @@ const getContainerStyles = computed(() => {
   return {};
 });
 
-// watch(() => props.sharedStyles.customStyle, (newSharedStyles) => {
-//   console.log('sharedStyles changed:', newSharedStyles);
-// });
-
-
 onMounted(() => {
   emit('containerRef', containerRef.value);
 });
+
+watch(() => props.isLevelCompleted, (newValue) => {
+  console.log('isLevelCompleted in InputField.vue:', newValue);
+});
+
 
 </script>
 

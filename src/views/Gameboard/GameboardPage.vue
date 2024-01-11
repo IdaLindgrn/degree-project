@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive, toRefs } from 'vue';
+import { ref, onMounted, watch, reactive, toRefs, toRaw } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
@@ -62,7 +62,7 @@ const levelData: Record<string, LevelData> = {
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [{ top: '85px', right: '25px' }],
-    completedStyling: { justifyContent: 'flex-end' },
+    completedStyling: { "justify-content": "flex-end" },
   },
   2: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -76,7 +76,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '110px' }, 
       { bottom: '30px', left: '200px' }
     ], 
-    completedStyling: { 'align-items': 'flex-end' },
+    completedStyling: { "align-items": "flex-end" },
   },
   3: {
     cats: [GrayCat, OrangeCat, BlackCat],
@@ -90,7 +90,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', right: '110px' }, 
       { bottom: '30px', right: '20px' }
     ], 
-    completedStyling: { 'flex-direction': 'row-reverse', 'align-items': 'flex-end' },
+    completedStyling: { "flex-direction": "row-reverse", "align-items": "flex-end" },
   },
   4: {
     cats: [BlackCat, BlackCat, OrangeCat, BlackCat, BlackCat],
@@ -106,7 +106,7 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', right: '100px' },
       { top: '85px', right: '10px' },
     ], 
-    completedStyling: { 'align-self': 'flex-end' },
+    completedStyling: { "align-self": "flex-end" },
   },
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -120,7 +120,7 @@ const levelData: Record<string, LevelData> = {
       { top: '85px', left: '105px' }, 
       { top: '85px', left: '180px' },
     ], 
-    completedStyling: { order: '1' },
+    completedStyling: { "order": "1" },
   },
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],
@@ -136,7 +136,7 @@ const levelData: Record<string, LevelData> = {
       { bottom: '30px', left: '10px' },
       { bottom: '30px', left: '95px' },
     ], 
-        completedStyling: { 'flex-wrap': 'wrap' },
+        completedStyling: { "flex-wrap": "wrap" },
   },
 };
 
@@ -153,12 +153,10 @@ const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: stri
   console.log("Local storage current style value:", savedStyling);
 
   if (savedStyling) {
-    // currentLevel.value!.styles.customStyle = JSON.parse(savedStyling);
     currentLevel.value!.styles.customStyle = reactive(JSON.parse(savedStyling));
   }
 
   if (newStyles?.customStyle) {
-    // currentLevel.value!.styles.customStyle = {
     currentLevel.value!.styles.customStyle = reactive({
       ...(currentLevel.value!.styles.customStyle || {}),
       ...newStyles.customStyle,
@@ -167,28 +165,55 @@ const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: stri
   
   // Check completion based on customStyle in localStorage
   if (currentLevel.value && currentLevel.value.completedStyling && containerRef.value) {
-    const containerElement = containerRef.value;
-    const computedStyles = getComputedStyle(containerElement);
 
-    isLevelCompleted.value = true;
+      const completedStyling = currentLevel.value.completedStyling;
+      const completedStylingPlain = toRaw(completedStyling);
 
-    for (const [property, value] of Object.entries(currentLevel.value.completedStyling)) {
-      const catPropertyValue = computedStyles.getPropertyValue(property).trim();
-      const completionThreshold = 10;
+      console.log("savedStyling:", savedStyling)
+      console.log("completedStyling:", completedStylingPlain)
 
-      if (Math.abs(parseInt(catPropertyValue) - parseInt(value)) >= completionThreshold) {
-        isLevelCompleted.value = false;
-        console.log('Level not completed');
-        break;
-      }
-    }
+      let savedStylingObject: { [key: string]: string } | null = null;
 
-    if (isLevelCompleted) {
-      console.log('Level completed');
-    }
-    sharedStyles.value.customStyle = currentLevel.value!.styles.customStyle;
-    console.log("Skickat värde:", sharedStyles.value.customStyle)
+      try {
+    savedStylingObject = savedStyling ? JSON.parse(savedStyling) : null;
+  } catch (error) {
+    console.error('Error parsing savedStyling:', error);
   }
+
+  const areObjectsEqual = compareObjects(savedStylingObject, completedStylingPlain);
+
+
+  if (areObjectsEqual) {
+      isLevelCompleted.value = true;
+      console.log('Level completed');
+      sharedStyles.value.customStyle = currentLevel.value!.styles.customStyle;
+      
+      console.log("Skickat värde:", sharedStyles.value.customStyle);
+  } else {
+      isLevelCompleted.value = false;
+      console.log('Level not completed');
+  }
+}
+
+
+function compareObjects(obj1: { [key: string]: string } | null, obj2: { [key: string]: string }): boolean {
+  if (!obj1) return false;
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (const key of keys1) {
+    if (obj1[key] !== obj2[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+  
 };
 
 onMounted(() => {
@@ -214,6 +239,8 @@ const goToNextLevel = () => {
   if (nextLevelId === 7) {
     showCompletionModal.value = true;
   } else {
+      sharedStyles.value.customStyle = "";
+      isLevelCompleted.value = false;
       router.push({ name: 'Gameboard', params: { levelId: nextLevelId.toString() } });
     }
 };
@@ -242,7 +269,7 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
       <p>{{ level?.level_name }}</p>
       <p>{{ level?.instructions }}</p>
     </div>
-      <InputField :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
+      <InputField :level="levelData[route.params.levelId as string]" :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
     </div>
     <div>
       <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="toRefs(sharedStyles)" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>

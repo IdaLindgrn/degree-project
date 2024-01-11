@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
-const props = defineProps(['isLevelCompleted']);
-//  'sharedStyles',
+const props = defineProps(['isLevelCompleted', 'levelId', 'sharedStyles']);
 const emit = defineEmits();
 
 const inputStyleText = ref('');
@@ -30,6 +29,7 @@ const convertInputToCustomStyle = () => {
 };
 
 const goToNextLevel = () => {
+  inputStyleText.value = '';
   if (props.isLevelCompleted) {
     emit('requestNextLevel');
   } else {
