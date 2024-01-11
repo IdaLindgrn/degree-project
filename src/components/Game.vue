@@ -31,12 +31,19 @@ watch(() => props.isLevelCompleted, (newValue) => {
 
 <template>
    <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles" ref="containerRef">
-    <div v-for="(cat, index) in props.level?.cats" :key="index">
+    <template v-if="!props.isLevelCompleted">
+      <div v-for="(cat, index) in props.level?.cats" :key="index">
     <img  class='cat' :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />
     </div>
     <div v-for="(box, index) in props.level?.boxes" :key="index">
     <img class='box' :src="box" :style="{...props.level?.levelBoxStyling && props.level?.levelBoxStyling[index] }" alt="Level box">
   </div>
+    </template>
+    <template v-else>
+    <div v-for="(catInBox, index) in props.level?.catsInBoxes" :key="index">
+    <img  class='catInBox' :src="catInBox" :style="{ ...props.level?.levelCatStyling }" alt="Level cat in" />
+    </div>
+  </template>
   </div>
 </template>
 
@@ -48,6 +55,12 @@ watch(() => props.isLevelCompleted, (newValue) => {
   padding: 20px;
   position: relative;
   display: flex;
+}
+
+.catInBox {
+  width: 105px;
+  height: 170px;
+  position: relative;
 }
 
 .cat {
@@ -67,6 +80,11 @@ watch(() => props.isLevelCompleted, (newValue) => {
     width: 70vw;
     height: 70vw;
   }
+
+.catInBox {
+  width: 90px;
+  height: 145px;
+}
   .cat {
   width: 90px;
   height: 145px;
@@ -79,6 +97,11 @@ watch(() => props.isLevelCompleted, (newValue) => {
 }
 
 @media (max-width: 700px) {
+
+  .catInBox {
+  width: 43px;
+  height: 70px;
+}
   .cat {
   width: 43px;
   height: 70px;

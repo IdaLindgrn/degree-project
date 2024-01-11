@@ -46,6 +46,7 @@ import GrayCatInBox from '@/assets/GrayCatInBox.png';
 interface LevelData {
   cats: any[];
   boxes: any[];
+  catsInBoxes: any[];
   styles: { customStyle: { [key: string]: string } };
   levelCatStyling?: { [key: string]: string };
   levelBoxStyling?: { [key: string]: string }[];
@@ -57,6 +58,7 @@ const levelData: Record<string, LevelData> = {
   1: {
     cats: [BlackCat],
     boxes: [OrangeBox],
+    catsInBoxes: [BlackCatInBox],
     styles: {
       customStyle: {},
     },
@@ -67,6 +69,7 @@ const levelData: Record<string, LevelData> = {
   2: {
     cats: [BlackCat, OrangeCat, GrayCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
+    catsInBoxes: [BlackCatInBox, OrangeCatInBox, GrayCatInBox],
     styles: {
       customStyle: {},
     },
@@ -81,6 +84,7 @@ const levelData: Record<string, LevelData> = {
   3: {
     cats: [GrayCat, OrangeCat, BlackCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
+    catsInBoxes: [GrayCatInBox, OrangeCatInBox, BlackCatInBox],
     styles: {
       customStyle: {},
     },
@@ -95,6 +99,7 @@ const levelData: Record<string, LevelData> = {
   4: {
     cats: [BlackCat, BlackCat, OrangeCat, BlackCat, BlackCat],
     boxes: [OrangeBox, OrangeBox, GreenBox, OrangeBox, OrangeBox],
+    catsInBoxes: [BlackCatInBox, BlackCatInBox, OrangeCatInBox, BlackCatInBox, BlackCatInBox],
     styles: {
       customStyle: {},
     },
@@ -111,6 +116,7 @@ const levelData: Record<string, LevelData> = {
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
     boxes: [OrangeBox, BlueBox, GreenBox],
+    catsInBoxes: [BlackCatInBox, OrangeCatInBox, GrayCatInBox],
     styles: {
       customStyle: {},
     },
@@ -125,6 +131,7 @@ const levelData: Record<string, LevelData> = {
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],
     boxes: [BlueBox, OrangeBox, OrangeBox, OrangeBox, GreenBox],
+    catsInBoxes: [GrayCatInBox, BlackCatInBox, BlackCatInBox, BlackCatInBox, OrangeCatInBox ],
     styles: {
       customStyle: {},
     },
