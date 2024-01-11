@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch, reactive } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
+
 const isLevelCompleted = ref(false);
 const props = defineProps(['level', 'levelId', 'sharedStyles', 'isLevelCompleted', 'updateFunction' ]);
 const emit = defineEmits();
-
 const containerRef = ref(null);
-const sharedStyles = ref({ customStyle: reactive({}) });
-
 
 
 const getContainerStyles = computed(() => {
@@ -16,10 +14,16 @@ const getContainerStyles = computed(() => {
     return {
       ...styles,
       ...styles.customStyle,
+      ...props.sharedStyles.customStyle.value,
     };
   }
   return {};
 });
+
+// watch(() => props.sharedStyles.customStyle, (newSharedStyles) => {
+//   console.log('sharedStyles changed:', newSharedStyles);
+// });
+
 
 onMounted(() => {
   emit('containerRef', containerRef.value);

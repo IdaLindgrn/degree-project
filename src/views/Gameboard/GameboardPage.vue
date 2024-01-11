@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive, watchEffect } from 'vue';
+import { ref, onMounted, watch, reactive, toRefs } from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
@@ -143,21 +143,28 @@ const levelData: Record<string, LevelData> = {
 const currentLevel = ref<LevelData | null>(null);
 
 const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: string]: string } }) => {
-  console.log('Styles received in Game.vue:', newStyles);
-  const levelId = route.params.levelId as string;          // extract current levelId
-  currentLevel.value = levelData[levelId];                 // getting the data from current level from the levelData object
+  const levelId = route.params.levelId as string;          
+  currentLevel.value = levelData[levelId];                 
 
-  const savedStyling = localStorage.getItem(`customStyle_${levelId}`);
+  const localStorageKey = `customStyle_${levelId}`;
+  console.log("Local storage current style key:", localStorageKey);
+
+  const savedStyling = localStorage.getItem(localStorageKey);
+  console.log("Local storage current style value:", savedStyling);
+
   if (savedStyling) {
-    currentLevel.value!.styles.customStyle = JSON.parse(savedStyling);
+    // currentLevel.value!.styles.customStyle = JSON.parse(savedStyling);
+    currentLevel.value!.styles.customStyle = reactive(JSON.parse(savedStyling));
   }
 
   if (newStyles?.customStyle) {
-    currentLevel.value!.styles.customStyle = {
+    // currentLevel.value!.styles.customStyle = {
+    currentLevel.value!.styles.customStyle = reactive({
       ...(currentLevel.value!.styles.customStyle || {}),
       ...newStyles.customStyle,
-    };
+    });
   }
+  
   // Check completion based on customStyle in localStorage
   if (currentLevel.value && currentLevel.value.completedStyling && containerRef.value) {
     const containerElement = containerRef.value;
@@ -177,34 +184,17 @@ const updateStylesAndCheckCompletion = (newStyles?: { customStyle?: { [key: stri
     }
 
     if (isLevelCompleted) {
-      console.log(isLevelCompleted);
       console.log('Level completed');
     }
+    sharedStyles.value.customStyle = currentLevel.value!.styles.customStyle;
+    console.log("Skickat värde:", sharedStyles.value.customStyle)
   }
-  sharedStyles.value.customStyle = currentLevel.value!.styles.customStyle;
 };
-
 
 onMounted(() => {
   fetchLevel();
   updateStylesAndCheckCompletion();
 });
-
-// watchEffect(() => {
-//   console.log('Hollla')
-//   const savedStyling = localStorage.getItem(`customStyle_${route.params.levelId}`);
-//   if (savedStyling) {
-//     sharedStyles.value.customStyle = JSON.parse(savedStyling);
-//   }
-// });
-
-// funkar inte
-// watch(() => localStorage, (newVal, oldVal) => {
-//   console.log('Hola')
-//   if (newVal.customStyle_1 !== oldVal.customStyle_1) {
-//     updateStylesAndCheckCompletion();
-//   }
-// });
 
 const fetchLevel = async () => {
   try {
@@ -221,7 +211,6 @@ const fetchLevel = async () => {
 
 const goToNextLevel = () => {
   const nextLevelId = level.value.id + 1; 
-  console.log(nextLevelId)
   if (nextLevelId === 7) {
     showCompletionModal.value = true;
   } else {
@@ -256,7 +245,7 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
       <InputField :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
     </div>
     <div>
-      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="sharedStyles" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
+      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="toRefs(sharedStyles)" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
     </div>
   </div>
      

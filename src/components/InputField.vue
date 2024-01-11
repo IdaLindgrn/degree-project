@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue';
 
 const props = defineProps(['isLevelCompleted']);
-console.log(props.isLevelCompleted)
 //  'sharedStyles',
 const emit = defineEmits();
 
@@ -31,8 +30,6 @@ const convertInputToCustomStyle = () => {
 };
 
 const goToNextLevel = () => {
-  console.log('Go to next level clicked');
-  console.log('isLevelCompleted in InputField.vue:', props.isLevelCompleted);
   if (props.isLevelCompleted) {
     emit('requestNextLevel');
   } else {
@@ -51,6 +48,7 @@ const goToNextLevel = () => {
         <p>#alley {</p>
         <p>display: flex;</p>
       <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
+      <p>}</p>
     </div>
     <button :style="{ backgroundColor: !props.isLevelCompleted ? 'gray' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
