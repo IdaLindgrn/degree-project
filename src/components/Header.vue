@@ -44,7 +44,7 @@ window.addEventListener('resize', () => {
       <img src="../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
     </router-link>
   </div>
-  <div class="hamburger-menu" @click="toggleMenu">
+  <!-- <div class="hamburger-menu" @click="toggleMenu">
     <font-awesome-icon icon="fas fa-bars" :style="{ fontSize: iconSize }" />
   </div>
   <nav class="nav"  :class="{ 'nav-open': isMenuOpen }">
@@ -53,7 +53,7 @@ window.addEventListener('resize', () => {
     <router-link to="/profile" class="nav-link" >
       <OverviewAccount/>
     </router-link>
-  </nav>
+  </nav> -->
 </header>
 </template>
 
@@ -65,6 +65,7 @@ window.addEventListener('resize', () => {
 }
 
 .logo {
+  padding: 1rem;
     display: flex;
     align-items: center;
 }

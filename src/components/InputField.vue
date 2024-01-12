@@ -45,12 +45,12 @@ const goToNextLevel = () => {
         <div v-for="i in 10" :key="i" class="line-number">{{ i }}</div>
       </div>
       <div class="input">
-        <p>#alley {</p>
-        <p>display: flex;</p>
+        <p class="input-ground">#alley {</p>
+        <p class="input-ground">display: flex;</p>
       <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
       <p>}</p>
     </div>
-    <button :style="{ backgroundColor: !props.isLevelCompleted ? 'gray' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
+    <button :style="{ backgroundColor: !props.isLevelCompleted ? '#5e5e5f' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
     </div>
     
   </div>
@@ -58,21 +58,23 @@ const goToNextLevel = () => {
 
 <style scoped>
 .field {
-  margin: 2vw;
-  background-color: rgb(189, 185, 213);
+  margin-left: 50px;
+  margin-top: 20px;
+  background-color: #7c6ca7;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  width: 40vw;
+  width: 50vw;
   position: relative;
 }
 
 p {
   padding-left: 15px;
-  color:  #694971;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: smaller;
-  padding-bottom: 10px;
+  color:  rgb(45, 22, 98);
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: medium;
   font-weight: bold;
+  padding-bottom: 7px;
 }
 
 .input-container {
@@ -83,22 +85,42 @@ p {
 }
 
 .line-numbers {
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 12px;
   padding-top: 20px;
-  gap: 13px;
-  background-color: #87718d;
+  gap: 10px;
+  background-color: #53417f;
 }
 
 .input {
    padding-bottom: 13px;
 }
 
+/* .input-ground {
+   padding-bottom: 10px;
+   font-size: small;
+} */
+
+#catStyleInput {
+  margin-left: 10px;
+  padding-left: 5px;
+  height: 25px;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  color: #694971;
+  resize: none; 
+  background-color: #ffffff;
+}
+
 .line-number {
-  color: rgb(189, 185, 213);
+  color: rgb(43, 23, 91);
   font-size: 0.8rem;
+  font-weight: bold;
 }
 
 #catStyleInput {
@@ -113,7 +135,8 @@ p {
 .next-level-button {
   margin: 10px;
   padding: 10px;
-  background-color: #694971;
+  background: rgb(161, 46, 11);
+  
   border-radius: 10px;
   color: white;
   border: none;
@@ -125,7 +148,7 @@ p {
 
 @media (max-width: 1025px) {
   .field {
-    width: 85vw;
+    width: 70vw;
   }
 }
 </style>

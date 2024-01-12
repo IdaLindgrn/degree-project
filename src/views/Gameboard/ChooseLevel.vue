@@ -35,7 +35,7 @@ const navigateToGameboard = (levelId: number) => {
     <header class="header">
       <div class="left-container">
         <router-link to="/">
-          <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
+          <font-awesome-icon icon="fas fa-chevron-left" class="back-button" :style="{ fontSize: '25px', color: '#fff' }" />
         </router-link>
       </div>
       <div class="centered-container">
@@ -47,9 +47,10 @@ const navigateToGameboard = (levelId: number) => {
     </header>
     <body class="body">
       <div class="level-container" v-for="(level, index) in levels" :key="index" @click="() => navigateToGameboard(level.id)">
-        <p>{{ level.title }}</p>
-        <p>{{ level.level_name }}</p>
-        <p>{{ level.learn }}</p>
+        <p class="level-learn">{{ level.title }}</p>
+        <p class="level-title">{{ level.level_name }}</p>
+        <p class="level-learn">{{ level.learn }}</p>
+        <div class="start-level">BEGIN</div>
       </div>
     </body>
 </template>
@@ -74,18 +75,51 @@ const navigateToGameboard = (levelId: number) => {
   padding: 40px;
 }
 .level-container {
-  border: 2px solid #cccccc;
-  padding: 10px;
-  text-align: center;
+  border: 3px solid #ababab;
+  padding: 35px;
   background-color: #2d1b5b;
   color: #fff;
+  transition: border-color 0.7s ease;
+}
+
+.level-container:hover {
+  border-color: #ffffff;
+}
+
+.level-title {
+  font-size: larger;
+  padding-bottom: 10px;
+}
+
+.level-learn {
+  font-size: small; 
+  padding-bottom: 5px;
+  color: #a395c7;
+}
+
+.start-level {
+  margin-top: 15px;
+  background: rgb(231,159,75);
+  background: linear-gradient(0deg, rgba(231,159,75,1) 0%, rgba(144,39,25,1) 100%);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.level-container:hover .start-level {
+  opacity: 1;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 1025px) {
   .body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 50px;
   }
 }
 

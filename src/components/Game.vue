@@ -31,6 +31,7 @@ watch(() => props.isLevelCompleted, (newValue) => {
 
 <template>
    <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles" ref="containerRef">
+    <img src="../assets/BoneFish.png" class="bone-fish" alt="Bonefish">
     <template v-if="!props.isLevelCompleted">
       <div v-for="(cat, index) in props.level?.cats" :key="index">
     <img  class='cat' :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />
@@ -49,29 +50,39 @@ watch(() => props.isLevelCompleted, (newValue) => {
 
 <style scoped>
 .container {
-  background-color: rgb(78, 73, 109);
+  background-color: #585478;
+  border-radius: 10px;
   width: 80vh;
   height: 80vh;
   padding: 20px;
   position: relative;
   display: flex;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(47, 46, 55, 0.638);
+}
+
+.bone-fish {
+  width: 50px;
+  height: 35px;
+  position: absolute;
+  right: 150px;
+  bottom: 140px;
 }
 
 .catInBox {
-  width: 105px;
-  height: 170px;
+  width: 90px;
+  height: 130px;
   position: relative;
 }
 
 .cat {
-  width: 105px;
-  height: 170px;
+  width: 80px;
+  height: 130px;
   position: relative;
 }
 
 .box {  
-  width: 110px;
-  height: 65px;
+  width: 90px;
+  height: 56px;
   position: absolute;
 }
 

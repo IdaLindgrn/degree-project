@@ -62,8 +62,8 @@ const levelData: Record<string, LevelData> = {
     styles: {
       customStyle: {},
     },
-    levelCatStyling: { top: '10px', left: '5px' },
-    levelBoxStyling: [{ top: '85px', right: '25px' }],
+    levelCatStyling: { top: '10px' },
+    levelBoxStyling: [{ top: '90px', right: '25px' }],
     completedStyling: { "justify-content": "flex-end" },
   },
   2: {
@@ -272,9 +272,17 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
         <div class="game-container">
     <div class="level-container">
       <div class="level-text">
-      <p>{{ level?.title }}</p>
-      <p>{{ level?.level_name }}</p>
-      <p>{{ level?.instructions }}</p>
+      <p class="level-number">{{ level?.title }}</p>
+      <p class="level-title">{{ level?.level_name }}</p>
+      <p class="level-description">{{ level?.instructions }}</p>
+      <div class="level-acceptable_values">
+    <p v-if="level?.acceptable_values">
+      <span v-for="(value, index) in level.acceptable_values.split('.')" :key="index">
+        {{ value }}
+        <br v-if="index < level.acceptable_values.split('.').length - 1" />
+      </span>
+    </p>
+  </div>
     </div>
       <InputField :level="levelData[route.params.levelId as string]" :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
     </div>
@@ -312,14 +320,45 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 }
 
 .level-text {
-  padding: 30px;
+  padding-left: 50px;
+  padding-right: 80px;
+  margin-top: -10px;
+
+}
+
+.level-number {
+  padding-bottom: 10px;
+  font-size: smaller;
+  color: #a395c7;
+}
+
+.level-title {
+  padding-bottom: 10px;
+  font-size: x-large;
+}
+
+.level-description {
+  padding-bottom: 10px;
+  color: #a395c7;
+  font-size: medium;
+}
+
+.level-acceptable_values {
+  font-size: small;
+  color: #ffffff;
 }
 
 @media (max-width: 1025px) {
+
   .game-container {
     flex-direction: column-reverse;
     align-items: center;
   }
+
+  .level-text {
+  margin-top: 30px;
+
+}
 
 }
 
