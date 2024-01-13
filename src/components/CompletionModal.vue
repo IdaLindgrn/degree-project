@@ -19,7 +19,8 @@ const goToHome = () => {
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
 .modal-background {
   position: fixed;
   top: 0;

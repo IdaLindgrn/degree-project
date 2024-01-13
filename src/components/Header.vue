@@ -55,9 +55,11 @@ window.addEventListener('resize', () => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
+
 .header {
-    background-color: #1C0C45;
+    background-color: $secondaryColor;
     display: flex;
     justify-content: space-between;
 }
@@ -75,7 +77,7 @@ window.addEventListener('resize', () => {
 
 .nav a {
   text-decoration: none;
-  color: #FFF1A7;
+  color: $primaryFontColor;
   margin: 0 1rem;
 }
 
@@ -89,7 +91,7 @@ window.addEventListener('resize', () => {
     display: flex;
     flex-direction:row;
     cursor: pointer;
-    color: #FFF1A7;
+    color: $primaryFontColor;
     align-items: center;
     padding: 37px;
   }
@@ -99,7 +101,7 @@ window.addEventListener('resize', () => {
     position: absolute;
     top: 80px;
     left: 0;
-    background-color: #1c0c45;
+    background-color: $secondaryColor;
     width: 100%;
     z-index: 1;
     display: none;

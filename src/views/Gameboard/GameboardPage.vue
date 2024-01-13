@@ -299,7 +299,8 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
 .gameboard {
     min-height: 100vh;
     text-align: left;

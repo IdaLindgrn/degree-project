@@ -53,7 +53,8 @@ const navigateToGameboard = (levelId: number) => {
 
 </script>
     
-    <style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
     
 .header {
     background-color: #1C0C45;

@@ -35,7 +35,8 @@ const startGame = () => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
 .banner-container {
   position: relative;
 }

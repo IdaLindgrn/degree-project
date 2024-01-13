@@ -56,7 +56,9 @@ const goToNextLevel = () => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
+
 .field {
   margin-top: 20px;
   background-color: #7c6ca7;
