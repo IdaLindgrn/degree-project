@@ -3,12 +3,12 @@
    <div class="banner-container">
     <div class="background-image"></div>
     <div class="start-game-button" @click="startGame">
-      <img class="start-game-image" src="../../assets/startgamebutton.png" alt="Start Game Button">
+      <img class="start-game-image" src="../../assets/start-game-button.png" alt="Start game button">
     </div>
    </div>
    <div class="current-version">
     <div>
-    <img class="version-image" src="../../assets/CurrentVersion.png" alt="Games current version">
+    <img class="version-image" src="../../assets/oval-city.png" alt="Smaller oval shaped city banner">
   </div>
     <div class="version-text">
     <h1>Key Features</h1>
@@ -19,7 +19,7 @@
   </div>
    </div>
    <div >
-    <img class="game-screens-image" src="../../assets/MeetTheCats.png" alt="Picture of the games cats">
+    <img class="game-screens-image" src="../../assets/meet-the-cats.png" alt="Picture of the games cats">
    </div>
 </template>
 
@@ -41,7 +41,7 @@ const startGame = () => {
 }
 
 .background-image {
-  background-image: url('../../assets/CityBanner.png');
+  background-image: url('../../assets/city-banner.png');
   background-size: cover;
   height: 50vw;
 }

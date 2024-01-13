@@ -1,6 +1,6 @@
 <template>
   <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles" ref="containerRef">
-   <img src="../assets/BoneFish.png" class="bone-fish" alt="Bonefish">
+   <img src="../assets/bone-fish.png" class="bone-fish" alt="Bonefish">
    <template v-if="!props.isLevelCompleted">
      <div v-for="(cat, index) in props.level?.cats" :key="index">
    <img  class='cat' :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />

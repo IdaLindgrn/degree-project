@@ -2,7 +2,7 @@
   <header class="header">
     <div class="logo">
       <router-link to="/">
-        <img src="../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
+        <img src="../assets/cat-box-logo.png" alt="CatBox logo"  width="230">
       </router-link>
     </div>
     <!-- <div class="hamburger-menu" @click="toggleMenu">

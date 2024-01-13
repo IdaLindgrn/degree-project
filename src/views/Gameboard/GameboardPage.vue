@@ -66,17 +66,17 @@ const handleInput = (newStyles: { customStyle: { [key: string]: string } }) => {
 };
 
 // added
-import BlackCat from '@/assets/BlackCat.png';
-import OrangeBox from '@/assets/OrangeBox.png';
-import BlackCatInBox from '@/assets/BlackCatInBox.png';
+import BlackCat from '@/assets/black-cat.png';
+import OrangeBox from '@/assets/orange-box.png';
+import BlackCatInBox from '@/assets/black-cat-in-box.png';
 
-import OrangeCat from '@/assets/OrangeCat.png';
-import GreenBox from '@/assets/GreenBox.png';
-import OrangeCatInBox from '@/assets/OrangeCatInBox.png';
+import OrangeCat from '@/assets/orange-cat.png';
+import GreenBox from '@/assets/green-box.png';
+import OrangeCatInBox from '@/assets/orange-cat-in-box.png';
 
-import GrayCat from '@/assets/GrayCat.png';
-import BlueBox from '@/assets/BlueBox.png';
-import GrayCatInBox from '@/assets/GrayCatInBox.png';
+import GrayCat from '@/assets/gray-cat.png';
+import BlueBox from '@/assets/blue-box.png';
+import GrayCatInBox from '@/assets/gray-cat-in-box.png';
 
 
 interface LevelData {
