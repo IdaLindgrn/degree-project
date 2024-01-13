@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <body>
     <div v-if="level" class="gameboard">
       <router-link to="/levels">
           <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
@@ -31,7 +31,7 @@
       <p>Loading...</p>
     </div>
     <CompletionModal v-if="showCompletionModal" />
-  </div>
+  </body>
 </template>
 
 <script setup lang="ts">
@@ -301,7 +301,6 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 
 <style scoped>
 .gameboard {
-    background-color: #2d1b5b;
     min-height: 100vh;
     text-align: left;
     color: white; 

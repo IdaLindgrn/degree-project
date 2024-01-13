@@ -67,7 +67,6 @@ const navigateToGameboard = (levelId: number) => {
   padding: 10px;
 }
 .body {
-  background-color: #2d1b5b;
   min-height: 100vh;
   padding: 40px;
 }
