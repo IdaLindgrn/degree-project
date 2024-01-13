@@ -1,13 +1,13 @@
-# Title
+# CatBox
 
-**Title** is an engaging and interactive game designed to make learning about CSS flexbox properties easy and enjoyable. As you guide adorable cats into their designated boxes, you'll gain practical experience with flexbox layout, starting from the basics and progressing to more advanced levels. By the end of the game, you'll not only be a pro at moving cats around but also equipped to create websites with awesome and responsive layouts!
+**CatBox** is an engaging and interactive game designed to make learning about CSS flexbox properties easy and enjoyable. As you guide adorable cats into their designated boxes, you'll gain practical experience with flexbox layout, starting from the basics and progressing to more advanced levels. By the end of the game, you'll not only be a pro at moving cats around but also equipped to create websites with awesome and responsive layouts!
 
 ## Getting Started
 
 ### Installation
 
 1. Clone the respositoy:
-   git clone https://github.com/your-username/degree-project.git
+   git clone https://github.com/IdaLindgrn/degree-project.git
 
 2. Change into project directory:
    cd degree-project
