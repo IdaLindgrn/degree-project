@@ -58,13 +58,13 @@ const goToNextLevel = () => {
 
 <style scoped>
 .field {
-  margin-left: 50px;
   margin-top: 20px;
   background-color: #7c6ca7;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  margin-left: -30px;
+  width: 80%;
   position: relative;
 }
 
@@ -148,7 +148,8 @@ p {
 
 @media (max-width: 1025px) {
   .field {
-    width: 70vw;
+    margin-left: 1.5%;
+    width: 100%;
   }
 }
 </style>

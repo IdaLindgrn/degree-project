@@ -93,34 +93,34 @@ watch(() => props.isLevelCompleted, (newValue) => {
   }
 
 .catInBox {
-  width: 90px;
-  height: 145px;
+  width: 120px;
+  height: 170px;
 }
   .cat {
-  width: 90px;
-  height: 145px;
+  width: 105px;
+  height: 170px;
 }
 
 .box {
-  width: 80px;
-  height: 50px;
+  width: 120px;
+  height: 75px;
 }
 }
 
 @media (max-width: 700px) {
 
   .catInBox {
-  width: 43px;
-  height: 70px;
+  width: 105px;
+  height: 150px;
 }
   .cat {
-  width: 43px;
-  height: 70px;
+  width: 95px;
+  height: 155px;
 }
 
 .box {
-  width: 47px;
-  height: 25px;
+  width: 110px;
+  height: 65px;
 }
 }
 </style>

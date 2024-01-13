@@ -316,6 +316,10 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
   }
 
   .level-container {
+    display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
+  justify-content: center;
   width: 100%; 
 }
 
@@ -344,8 +348,9 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 }
 
 .level-acceptable_values {
-  font-size: small;
+  font-size: smaller;
   color: #ffffff;
+  
 }
 
 @media (max-width: 1025px) {

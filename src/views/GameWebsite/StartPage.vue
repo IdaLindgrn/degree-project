@@ -30,11 +30,10 @@ const startGame = () => {
     <br>
     <p>- Beta Release</p>
     <p>- 6 unique levels</p>
-    <p>- Profile (avatars, save progress)</p>
   </div>
    </div>
    <div >
-    <img class="game-screens-image" src="../../assets/GameScreens.png" alt="Picture of game screens">
+    <img class="game-screens-image" src="../../assets/MeetTheCats.png" alt="Picture of the games cats">
    </div>
  
 </template>
