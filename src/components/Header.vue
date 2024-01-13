@@ -1,3 +1,23 @@
+<template>
+  <header class="header">
+    <div class="logo">
+      <router-link to="/">
+        <img src="../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
+      </router-link>
+    </div>
+    <!-- <div class="hamburger-menu" @click="toggleMenu">
+      <font-awesome-icon icon="fas fa-bars" :style="{ fontSize: iconSize }" />
+    </div>
+    <nav class="nav"  :class="{ 'nav-open': isMenuOpen }">
+      <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
+      <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
+      <router-link to="/profile" class="nav-link" >
+        <OverviewAccount/>
+      </router-link>
+    </nav> -->
+  </header>
+  </template>
+
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
@@ -34,28 +54,6 @@ window.addEventListener('resize', () => {
 
 
 </script>
-
-
-
-<template>
-<header class="header">
-  <div class="logo">
-    <router-link to="/">
-      <img src="../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
-    </router-link>
-  </div>
-  <!-- <div class="hamburger-menu" @click="toggleMenu">
-    <font-awesome-icon icon="fas fa-bars" :style="{ fontSize: iconSize }" />
-  </div>
-  <nav class="nav"  :class="{ 'nav-open': isMenuOpen }">
-    <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
-    <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
-    <router-link to="/profile" class="nav-link" >
-      <OverviewAccount/>
-    </router-link>
-  </nav> -->
-</header>
-</template>
 
 <style scoped>
 .header {

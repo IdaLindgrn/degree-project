@@ -1,3 +1,29 @@
+<template>
+  <form @submit.prevent="registerUser" class="registration-form">
+    <p style="font-size: larger;">Create your account</p>
+  <div class="form-group">
+    <label>Profile Picture URL:</label>
+    <input v-model="profilePicture" type="url" placeholder="Profile picture" />
+  </div>
+
+  <div class="form-group">
+    <label>Email:</label>
+    <input v-model="email" type="email" placeholder="Enter your email" required />
+  </div>
+
+  <div class="form-group">
+    <label>Username:</label>
+    <input v-model="username" type="text" placeholder="Enter your username" required />
+  </div>
+
+  <div class="form-group">
+    <label>Password:</label>
+    <input v-model="password" type="password" placeholder="Enter your password" required />
+  </div>
+
+    <button type="submit" class="submit-button">Create account</button>
+  </form>
+</template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -38,33 +64,6 @@ const registerUser = async () => {
 };
 </script>
 
-<template>
-    <form @submit.prevent="registerUser" class="registration-form">
-      <p style="font-size: larger;">Create your account</p>
-    <div class="form-group">
-      <label>Profile Picture URL:</label>
-      <input v-model="profilePicture" type="url" placeholder="Profile picture" />
-    </div>
-
-    <div class="form-group">
-      <label>Email:</label>
-      <input v-model="email" type="email" placeholder="Enter your email" required />
-    </div>
-  
-    <div class="form-group">
-      <label>Username:</label>
-      <input v-model="username" type="text" placeholder="Enter your username" required />
-    </div>
-  
-    <div class="form-group">
-      <label>Password:</label>
-      <input v-model="password" type="password" placeholder="Enter your password" required />
-    </div>
-
-      <button type="submit" class="submit-button">Create account</button>
-    </form>
-  </template>
-  
   <style>
   .registration-form {
   display: flex;

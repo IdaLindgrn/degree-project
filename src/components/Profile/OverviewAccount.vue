@@ -1,3 +1,19 @@
+<template>
+  <div>
+     <div v-if="fetchError">{{ fetchError }}</div>
+
+    <div v-else-if="isLoggedIn && loggedInUser">
+      <div v-for="user in loggedInUser" :key="user.id">
+        <p>{{ user.username }}</p>
+      </div>
+    </div>
+
+    <div v-else>
+      <router-link to="/profile">Profile</router-link>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import supabase from '../../config/supabaseClient';
@@ -77,22 +93,6 @@ onMounted(() => {
 });
 
 </script>
-
-<template>
-  <div>
-     <div v-if="fetchError">{{ fetchError }}</div>
-
-    <div v-else-if="isLoggedIn && loggedInUser">
-      <div v-for="user in loggedInUser" :key="user.id">
-        <p>{{ user.username }}</p>
-      </div>
-    </div>
-
-    <div v-else>
-      <router-link to="/profile">Profile</router-link>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 </style>

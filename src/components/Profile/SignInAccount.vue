@@ -1,3 +1,27 @@
+<template>
+  <div>
+   <form @submit.prevent="signInUser" class="registration-form">
+     <p style="font-size: larger;">Login to your account</p>
+   <div class="form-group">
+    <label for="emailOrUsername">Email:</label>
+    <input id="emailOrUsername" v-model="email" type="text" placeholder="Enter your email" required />
+   </div>
+
+ <div class="form-group">
+   <label for="password">Password:</label>
+   <input id="password" v-model="password" type="password"  placeholder="Enter your password" required />
+ </div>
+
+   <button type="submit" class="submit-button">Login</button>
+ </form>
+
+ <div v-if="showPopup" class="popup">
+     {{ popupMessage }}
+     <button @click="closePopup">Close</button>
+   </div>
+  </div>
+ </template>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import supabase from '../../config/supabaseClient'; 
@@ -54,30 +78,6 @@ const closePopup = () => {
   }
 };
 </script>
-
-<template>
-   <div>
-    <form @submit.prevent="signInUser" class="registration-form">
-      <p style="font-size: larger;">Login to your account</p>
-    <div class="form-group">
-     <label for="emailOrUsername">Email:</label>
-     <input id="emailOrUsername" v-model="email" type="text" placeholder="Enter your email" required />
-    </div>
-
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input id="password" v-model="password" type="password"  placeholder="Enter your password" required />
-  </div>
-
-    <button type="submit" class="submit-button">Login</button>
-  </form>
-
-  <div v-if="showPopup" class="popup">
-      {{ popupMessage }}
-      <button @click="closePopup">Close</button>
-    </div>
-   </div>
-  </template>
 
 <style>
 .popup {

@@ -1,17 +1,3 @@
-
-
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
-import Header from '../../components/Header.vue'
-
-const router = useRouter();
-
-const startGame = () => {
-  router.push('/levels');
-}
-
-</script>
-
 <template>
   <Header></Header>
    <div class="banner-container">
@@ -35,8 +21,19 @@ const startGame = () => {
    <div >
     <img class="game-screens-image" src="../../assets/MeetTheCats.png" alt="Picture of the games cats">
    </div>
- 
 </template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+import Header from '../../components/Header.vue'
+
+const router = useRouter();
+
+const startGame = () => {
+  router.push('/levels');
+}
+
+</script>
 
 <style scoped>
 .banner-container {

@@ -1,10 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-//Gameboard
 import Gameboard from "../views/Gameboard/GameboardPage.vue";
 import Levels from "../views/Gameboard/ChooseLevel.vue";
-
-// GameWebsite
 import Home from "../views/GameWebsite/StartPage.vue";
 import About from "../views/GameWebsite/AboutPage.vue";
 import Profile from "../views/Profile/ProfilePage.vue";

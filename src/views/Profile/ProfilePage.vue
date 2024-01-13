@@ -1,4 +1,24 @@
+<template>
+  <div class="profile-page">
+   <router-link to="/" class="back-arrow">
+         <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
+       </router-link>
 
+   <div class="white-box">
+   <SignInAccount v-if="isSignIn" />
+   <CreateAccount v-else />
+   <p class="auth-text" v-if="isSignIn">
+     <span>Don't have an account? </span>
+     <span @click="isSignIn = false"  class="auth-action">Register</span>
+   </p>
+   <p class="auth-text" v-else>
+     <span>Already have an account? </span>
+     <span @click="isSignIn = true" class="auth-action">Sign In</span>
+   </p>
+   </div>
+ </div>
+   </template>
+   
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -8,28 +28,6 @@ import CreateAccount from '../../components/Profile/CreateAccount.vue';
 const isSignIn = ref(true);
 
 </script>
-
-    <template>
-   <div class="profile-page">
-    <router-link to="/" class="back-arrow">
-          <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
-        </router-link>
- 
-    <div class="white-box">
-    <SignInAccount v-if="isSignIn" />
-    <CreateAccount v-else />
-    <p class="auth-text" v-if="isSignIn">
-      <span>Don't have an account? </span>
-      <span @click="isSignIn = false"  class="auth-action">Register</span>
-    </p>
-    <p class="auth-text" v-else>
-      <span>Already have an account? </span>
-      <span @click="isSignIn = true" class="auth-action">Sign In</span>
-    </p>
-    </div>
-  </div>
-    </template>
-    
     
     <style scoped>
     .profile-page {

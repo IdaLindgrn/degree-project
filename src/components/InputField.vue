@@ -1,3 +1,21 @@
+<template>
+  <div class="field">
+    <div class="input-container">
+      <div class="line-numbers">
+        <div v-for="i in 10" :key="i" class="line-number">{{ i }}</div>
+      </div>
+      <div class="input">
+        <p class="input-ground">#alley {</p>
+        <p class="input-ground">display: flex;</p>
+      <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
+      <p>}</p>
+    </div>
+    <button :style="{ backgroundColor: !props.isLevelCompleted ? '#5e5e5f' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
+    </div>
+    
+  </div>
+</template>
+
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 
@@ -37,24 +55,6 @@ const goToNextLevel = () => {
   }
 };
 </script>
-
-<template>
-  <div class="field">
-    <div class="input-container">
-      <div class="line-numbers">
-        <div v-for="i in 10" :key="i" class="line-number">{{ i }}</div>
-      </div>
-      <div class="input">
-        <p class="input-ground">#alley {</p>
-        <p class="input-ground">display: flex;</p>
-      <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
-      <p>}</p>
-    </div>
-    <button :style="{ backgroundColor: !props.isLevelCompleted ? '#5e5e5f' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
-    </div>
-    
-  </div>
-</template>
 
 <style scoped>
 .field {

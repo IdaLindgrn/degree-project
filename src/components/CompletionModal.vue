@@ -1,3 +1,12 @@
+<template>
+  <div class="modal-background">
+    <div class="modal-content">
+      <p>Congratulations! You have completed the game.</p>
+      <button @click="goToHome">Go to Home</button>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
@@ -9,14 +18,6 @@ const goToHome = () => {
 
 </script>
 
-<template>
-  <div class="modal-background">
-    <div class="modal-content">
-      <p>Congratulations! You have completed the game.</p>
-      <button @click="goToHome">Go to Home</button>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .modal-background {

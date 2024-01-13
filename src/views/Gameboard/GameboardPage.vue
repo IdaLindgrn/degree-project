@@ -1,3 +1,39 @@
+<template>
+  <div>
+    <div v-if="level" class="gameboard">
+      <router-link to="/levels">
+          <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
+        </router-link>
+        <div class="game-container">
+    <div class="level-container">
+      <div class="level-text">
+      <p class="level-number">{{ level?.title }}</p>
+      <p class="level-title">{{ level?.level_name }}</p>
+      <p class="level-description">{{ level?.instructions }}</p>
+      <div class="level-acceptable_values">
+    <p v-if="level?.acceptable_values">
+      <span v-for="(value, index) in level.acceptable_values.split('.')" :key="index">
+        {{ value }}
+        <br v-if="index < level.acceptable_values.split('.').length - 1" />
+      </span>
+    </p>
+  </div>
+    </div>
+      <InputField :level="levelData[route.params.levelId as string]" :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
+    </div>
+    <div>
+      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="toRefs(sharedStyles)" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
+    </div>
+  </div>
+     
+    </div>
+    <div v-else>
+      <p>Loading...</p>
+    </div>
+    <CompletionModal v-if="showCompletionModal" />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, onMounted, watch, reactive, toRefs, toRaw } from 'vue';
 import supabase from '../../config/supabaseClient';
@@ -262,42 +298,6 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
   }
 });
 </script>
-
-<template>
-  <div>
-    <div v-if="level" class="gameboard">
-      <router-link to="/levels">
-          <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
-        </router-link>
-        <div class="game-container">
-    <div class="level-container">
-      <div class="level-text">
-      <p class="level-number">{{ level?.title }}</p>
-      <p class="level-title">{{ level?.level_name }}</p>
-      <p class="level-description">{{ level?.instructions }}</p>
-      <div class="level-acceptable_values">
-    <p v-if="level?.acceptable_values">
-      <span v-for="(value, index) in level.acceptable_values.split('.')" :key="index">
-        {{ value }}
-        <br v-if="index < level.acceptable_values.split('.').length - 1" />
-      </span>
-    </p>
-  </div>
-    </div>
-      <InputField :level="levelData[route.params.levelId as string]" :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
-    </div>
-    <div>
-      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="toRefs(sharedStyles)" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
-    </div>
-  </div>
-     
-    </div>
-    <div v-else>
-      <p>Loading...</p>
-    </div>
-    <CompletionModal v-if="showCompletionModal" />
-  </div>
-</template>
 
 <style scoped>
 .gameboard {

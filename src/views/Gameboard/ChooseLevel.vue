@@ -1,4 +1,26 @@
-
+<template>
+  <header class="header">
+    <div class="left-container">
+      <router-link to="/">
+        <font-awesome-icon icon="fas fa-chevron-left" class="back-button" :style="{ fontSize: '25px', color: '#fff' }" />
+      </router-link>
+    </div>
+    <div class="centered-container">
+     <router-link to="/">
+       <img src="../../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
+     </router-link>
+    </div>
+    <div class="right-container"></div>
+  </header>
+  <body class="body">
+    <div class="level-container" v-for="(level, index) in levels" :key="index" @click="() => navigateToGameboard(level.id)">
+      <p class="level-learn">{{ level.title }}</p>
+      <p class="level-title">{{ level.level_name }}</p>
+      <p class="level-learn">{{ level.learn }}</p>
+      <div class="start-level">BEGIN</div>
+    </div>
+  </body>
+</template>
 
 <script setup lang="ts">
 
@@ -30,31 +52,6 @@ const navigateToGameboard = (levelId: number) => {
 };
 
 </script>
-
-<template>
-    <header class="header">
-      <div class="left-container">
-        <router-link to="/">
-          <font-awesome-icon icon="fas fa-chevron-left" class="back-button" :style="{ fontSize: '25px', color: '#fff' }" />
-        </router-link>
-      </div>
-      <div class="centered-container">
-       <router-link to="/">
-         <img src="../../assets/CatBoxLogo.png" alt="CatBoxLogo"  width="230">
-       </router-link>
-      </div>
-      <div class="right-container"></div>
-    </header>
-    <body class="body">
-      <div class="level-container" v-for="(level, index) in levels" :key="index" @click="() => navigateToGameboard(level.id)">
-        <p class="level-learn">{{ level.title }}</p>
-        <p class="level-title">{{ level.level_name }}</p>
-        <p class="level-learn">{{ level.learn }}</p>
-        <div class="start-level">BEGIN</div>
-      </div>
-    </body>
-</template>
-    
     
     <style scoped>
     
