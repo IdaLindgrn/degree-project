@@ -70,7 +70,7 @@ const startGame = () => {
 }
 
 .game-screens-image {
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 .version-text {

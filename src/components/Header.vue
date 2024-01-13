@@ -5,7 +5,7 @@
         <img src="../assets/cat-box-logo.png" alt="CatBox logo"  width="230">
       </router-link>
     </div>
-    <!-- <div class="hamburger-menu" @click="toggleMenu">
+    <div class="hamburger-menu" @click="toggleMenu">
       <font-awesome-icon icon="fas fa-bars" :style="{ fontSize: iconSize }" />
     </div>
     <nav class="nav"  :class="{ 'nav-open': isMenuOpen }">
@@ -14,7 +14,7 @@
       <router-link to="/profile" class="nav-link" >
         <OverviewAccount/>
       </router-link>
-    </nav> -->
+    </nav>
   </header>
   </template>
 
