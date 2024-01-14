@@ -6,15 +6,15 @@
       </router-link>
     </div>
     <div class="centered-container">
-     <router-link to="/">
-       <img src="../../assets/cat-box-logo.png" alt="CatBox logo"  width="230">
-     </router-link>
+      <div class="logo">    
+          <img src="../../assets/cat-box-logo.png" alt="CatBox logo">
+      </div> 
     </div>
     <div class="right-container"></div>
   </header>
   <body class="body">
     <div class="level-container" v-for="(level, index) in levels" :key="index" @click="() => navigateToGameboard(level.id)">
-      <p class="level-learn">{{ level.title }}</p>
+      <p class="level-number">{{ level.title }}</p>
       <p class="level-title">{{ level.level_name }}</p>
       <p class="level-learn">{{ level.learn }}</p>
       <div class="start-level">BEGIN</div>
@@ -53,34 +53,32 @@ const navigateToGameboard = (levelId: number) => {
 
 </script>
     
-    <style scoped>
-    
-.header {
-    background-color: #1C0C45;
-    padding: 1.3rem 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+<style scoped lang="scss">
+@import '@/style/main';
 
 .right-container {
   padding: 10px;
 }
 .body {
-  background-color: #2d1b5b;
-  min-height: 100vh;
   padding: 40px;
 }
 .level-container {
-  border: 3px solid #ababab;
+  border: 3px solid $secondaryFontColor;
   padding: 35px;
-  background-color: #2d1b5b;
-  color: #fff;
+  background-color: $primaryColor;
+  color: $primaryFontColor;
   transition: border-color 0.7s ease;
 }
 
 .level-container:hover {
-  border-color: #ffffff;
+  border-color: $primaryFontColor;
+}
+
+
+.level-number {
+  font-size: smaller; 
+  padding-bottom: 5px;
+  color: $secondaryFontColor;
 }
 
 .level-title {
@@ -90,15 +88,13 @@ const navigateToGameboard = (levelId: number) => {
 
 .level-learn {
   font-size: small; 
-  padding-bottom: 5px;
-  color: #a395c7;
+  color: $secondaryFontColor;
 }
 
 .start-level {
   margin-top: 15px;
-  background: rgb(231,159,75);
-  background: linear-gradient(0deg, rgba(231,159,75,1) 0%, rgba(144,39,25,1) 100%);
-  padding: 10px;
+  background: $primaryButtonColor;
+  padding: 8px;
   border-radius: 5px;
   text-align: center;
   bottom: 0;
@@ -112,7 +108,7 @@ const navigateToGameboard = (levelId: number) => {
   cursor: pointer;
 }
 
-@media only screen and (min-width: 1025px) {
+@include desktop-small {
   .body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -120,7 +116,7 @@ const navigateToGameboard = (levelId: number) => {
   }
 }
 
-@media only screen and (max-width: 1025px) {
+@include mobile-small {
   .body {
     display: grid;
     gap: 30px;
