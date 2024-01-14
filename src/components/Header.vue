@@ -42,13 +42,13 @@ watch(() => currentRoute.path, () => {
 });
 
 onMounted(() => {
-  if (window.innerWidth <= 768) {
+  if (window.innerWidth <= 610) {
     closeMenu();
   }
 });
 
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth > 610) {
     closeMenu();
   }
 });
@@ -66,7 +66,7 @@ window.addEventListener('resize', () => {
 
 .nav a {
   text-decoration: none;
-  color: $primaryFontColor;
+  color: $teritaryFontColor;
   margin: 0 1rem;
 }
 
@@ -74,12 +74,12 @@ window.addEventListener('resize', () => {
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@include mobile-large {
   .hamburger-menu {
     display: flex;
     flex-direction:row;
     cursor: pointer;
-    color: $primaryFontColor;
+    color: $teritaryFontColor;
     align-items: center;
     padding-right: 20px;
   }

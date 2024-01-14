@@ -72,7 +72,7 @@ onMounted(() => {
 }
 
 .current-version {
-  background-color: #423162;
+  background-color: $teritaryColor;
   height: 50vw;
   display: flex;
   align-items: center;
@@ -84,17 +84,16 @@ onMounted(() => {
   }
 
   .version-text {
-    color: #FFF1A7;
+    color: $teritaryFontColor;
     font-size: larger;
 
 
-    @media (max-width: 700px) {
+    @include tablet-large {
       font-size: smaller;
     }
 
-    @media (max-width: 530px) {
+    @include mobile-large {
       font-size: x-small;
-
     }
   }
 }

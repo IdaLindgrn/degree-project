@@ -331,14 +331,8 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 .gameboard {
   min-height: 100vh;
   text-align: left;
-  color: white;
+  color: $primaryFontColor;
   padding: 30px;
-}
-
-.game-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 .level-container {
@@ -349,16 +343,10 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
   width: 100%;
 }
 
-.level-text {
-  padding-left: 50px;
-  padding-right: 80px;
-  margin-top: -10px;
-}
-
 .level-number {
   padding-bottom: 10px;
   font-size: smaller;
-  color: #a395c7;
+  color: $secondaryFontColor;
 }
 
 .level-title {
@@ -368,17 +356,32 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 
 .level-description {
   padding-bottom: 10px;
-  color: #a395c7;
+  color: $secondaryFontColor;
   font-size: medium;
 }
 
 .level-acceptable_values {
   font-size: smaller;
-  color: #ffffff;
+  color: $primaryFontColor;
 }
 
-@media (max-width: 1025px) {
+  .level-text {
+  padding-left: 50px;
+  padding-right: 80px;
+}
   .game-container {
+    display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.level-text {
+  margin-top: -10px;
+}
+
+@include tablet-large {
+  .game-container {
+    display: flex;
     flex-direction: column-reverse;
     align-items: center;
   }
