@@ -13,10 +13,11 @@
       </div>
       <div class="version-text">
         <h1>Key Features</h1>
-        <p>Version 0.01 (14.01.2024)</p>
+        <p>Version 0.10 (14.01.2024)</p>
         <br>
         <p>- Beta Release</p>
         <p>- 6 unique levels</p>
+        <p>- Tutorial</p>
       </div>
     </div>
 
