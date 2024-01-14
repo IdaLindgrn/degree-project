@@ -60,7 +60,8 @@ watch(() => props.isLevelCompleted, (newValue) => {
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/main';
 .container {
   background-color: #585478;
   border-radius: 10px;
@@ -98,7 +99,7 @@ watch(() => props.isLevelCompleted, (newValue) => {
   position: absolute;
 }
 
-@media (max-width: 1025px) {
+@include tablet-large {
   .container {
     width: 70vw;
     height: 70vw;
@@ -119,7 +120,7 @@ watch(() => props.isLevelCompleted, (newValue) => {
 }
 }
 
-@media (max-width: 700px) {
+@include mobile-large {
 
   .catInBox {
   width: 105px;

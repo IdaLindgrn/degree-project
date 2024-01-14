@@ -67,7 +67,7 @@ const goToNextLevel = () => {
 
 .field {
   margin-top: 20px;
-  background-color: #7c6ca7;
+  background-color: $secondaryFontColor;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -78,8 +78,8 @@ const goToNextLevel = () => {
 
 p {
   padding-left: 15px;
-  color:  rgb(45, 22, 98);
-  font-family:Arial, Helvetica, sans-serif;
+  color:  $primaryColor;
+  font-family: $secondaryFontFamily;
   font-size: medium;
   font-weight: bold;
   padding-bottom: 7px;
@@ -108,11 +108,6 @@ p {
    padding-bottom: 13px;
 }
 
-/* .input-ground {
-   padding-bottom: 10px;
-   font-size: small;
-} */
-
 #catStyleInput {
   margin-left: 10px;
   padding-left: 5px;
@@ -120,33 +115,23 @@ p {
   flex-grow: 1;
   border: none;
   outline: none;
-  color: #694971;
+  color: $primaryColor;
   resize: none; 
-  background-color: #ffffff;
+  background-color: $primaryFontColor;
 }
 
 .line-number {
-  color: rgb(43, 23, 91);
+  color: $secondaryColor;
   font-size: 0.8rem;
   font-weight: bold;
-}
-
-#catStyleInput {
-  margin-left: 10px;
-  padding-left: 5px;
-  flex-grow: 1;
-  border: none;
-  outline: none;
-  color: #694971;
 }
 
 .next-level-button {
   margin: 10px;
   padding: 10px;
-  background: rgb(161, 46, 11);
-  
+  background: $primaryButtonColor;
   border-radius: 10px;
-  color: white;
+  color: $primaryFontColor;
   border: none;
   cursor: pointer;
   position: absolute;
@@ -154,7 +139,7 @@ p {
   right: 20px; 
 }
 
-@media (max-width: 1025px) {
+@include tablet-large {
   .field {
     margin-left: 1.5%;
     width: 100%;

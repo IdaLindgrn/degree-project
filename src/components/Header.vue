@@ -11,9 +11,7 @@
     <nav class="nav" :class="{ 'nav-open': isMenuOpen }">
       <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
       <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
-      <router-link to="/profile" class="nav-link">
-        <OverviewAccount />
-      </router-link>
+      <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
     </nav>
   </header>
 </template>
@@ -22,7 +20,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
-import OverviewAccount from '../components/Profile/OverviewAccount.vue';
 
 const isMenuOpen = ref(false);
 const currentRoute = useRoute();

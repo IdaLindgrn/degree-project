@@ -27,14 +27,14 @@ const goToHome = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: $primaryTransparentColor;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: $primaryFontColor;
   padding: 80px;
   border-radius: 8px;
   max-width: 400px;
@@ -44,8 +44,8 @@ const goToHome = () => {
 button {
   margin-top: 20px;
   padding: 10px;
-  background-color: #694971;
-  color: white;
+  background-color: $primaryButtonColor;
+  color: $primaryFontColor;
   border: none;
   cursor: pointer;
 }
