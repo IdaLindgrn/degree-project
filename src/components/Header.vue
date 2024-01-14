@@ -10,8 +10,8 @@
     </div>
     <nav class="nav" :class="{ 'nav-open': isMenuOpen }">
       <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
-      <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
-      <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
+      <router-link to="/about" class="nav-link" @click="closeMenu">Tutorial</router-link>
+      <router-link to="/about" class="nav-link" @click="closeMenu">Screenshots</router-link>
     </nav>
   </header>
 </template>
@@ -65,6 +65,10 @@ window.addEventListener('resize', () => {
   text-decoration: none;
   color: $teritaryFontColor;
   margin: 0 1rem;
+}
+
+.nav :hover {
+  color: $primaryFontColor;
 }
 
 .hamburger-menu {
