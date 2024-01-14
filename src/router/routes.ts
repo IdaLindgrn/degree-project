@@ -3,7 +3,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import Gameboard from "../views/Gameboard/GameboardPage.vue";
 import Levels from "../views/Gameboard/ChooseLevel.vue";
 import Home from "../views/GameWebsite/StartPage.vue";
-import About from "../views/GameWebsite/AboutPage.vue";
+import Tutorial from "../views/GameWebsite/TutorialPage.vue";
+import Screenshots from "../views/GameWebsite/ScreenshotsPage.vue";
 
 const routes = [
   {
@@ -12,9 +13,14 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: About,
+    path: "/tutorial",
+    name: "Tutorial",
+    component: Tutorial,
+  },
+  {
+    path: "/screenshots",
+    name: "Screenshots",
+    component: Screenshots,
   },
   {
     path: "/gameboard:levelId",

@@ -129,6 +129,20 @@ const levelData: Record<string, LevelData> = {
     completedStyling: { "justify-content": "flex-end" },
   },
   2: {
+    cats: [BlackCat],
+    boxes: [OrangeBox],
+    catsInBoxes: [BlackCatInBox],
+    styles: {
+      customStyle: {},
+    },
+    levelCatStyling: { top: '10px', left: '5px' },
+    levelBoxStyling: [
+      { top: '85px', left: '90px' }, 
+
+    ], 
+    completedStyling: { "justify-content": "center" },
+  },
+  3: {
     cats: [BlackCat, OrangeCat, GrayCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
     catsInBoxes: [BlackCatInBox, OrangeCatInBox, GrayCatInBox],
@@ -143,37 +157,22 @@ const levelData: Record<string, LevelData> = {
     ], 
     completedStyling: { "align-items": "flex-end" },
   },
-  3: {
+  4: {
     cats: [GrayCat, OrangeCat, BlackCat],
     boxes: [OrangeBox, GreenBox, BlueBox],
-    catsInBoxes: [GrayCatInBox, OrangeCatInBox, BlackCatInBox],
+    catsInBoxes: [BlackCatInBox, OrangeCatInBox, GrayCatInBox],
     styles: {
       customStyle: {},
     },
     levelCatStyling: { top: '10px', left: '5px' },
     levelBoxStyling: [
-      { bottom: '30px', right: '200px' }, 
-      { bottom: '30px', right: '110px' }, 
-      { bottom: '30px', right: '20px' }
+      { top: '85px', right: '200px' }, 
+      { top: '85px', right: '110px' }, 
+      { top: '85px', right: '20px' }, 
+ 
+
     ], 
-    completedStyling: { "flex-direction": "row-reverse", "align-items": "flex-end" },
-  },
-  4: {
-    cats: [BlackCat, BlackCat, OrangeCat, BlackCat, BlackCat],
-    boxes: [OrangeBox, OrangeBox, GreenBox, OrangeBox, OrangeBox],
-    catsInBoxes: [BlackCatInBox, BlackCatInBox, OrangeCatInBox, BlackCatInBox, BlackCatInBox],
-    styles: {
-      customStyle: {},
-    },
-    levelCatStyling: { top: '50px', left: '50px' },
-    levelBoxStyling: [
-      { top: '85px', left: '10px' }, 
-      { top: '85px', left: '100px' }, 
-      { bottom: '30px', right:'140px' },
-      { top: '85px', right: '100px' },
-      { top: '85px', right: '10px' },
-    ], 
-    completedStyling: { "align-self": "flex-end" },
+    completedStyling: { "flex-direction": "row-reverse" },
   },
   5: {
     cats: [BlackCat, OrangeCat, GrayCat],
@@ -184,11 +183,11 @@ const levelData: Record<string, LevelData> = {
     },
     levelCatStyling: { top: '15px', left: '10px' },
     levelBoxStyling: [
-      { top: '85px', left: '25px' }, 
-      { top: '85px', left: '105px' }, 
-      { top: '85px', left: '180px' },
+      { top: '85px', left: '20px' }, 
+      { top: '165px', left: '20px' }, 
+      { top: '245px', left: '20px' },
     ], 
-    completedStyling: { "order": "1" },
+    completedStyling: { "flex-direction": "column" },
   },
   6: {
     cats: [GrayCat, BlackCat, BlackCat, BlackCat, OrangeCat],

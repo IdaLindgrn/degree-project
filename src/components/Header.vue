@@ -10,8 +10,8 @@
     </div>
     <nav class="nav" :class="{ 'nav-open': isMenuOpen }">
       <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
-      <router-link to="/about" class="nav-link" @click="closeMenu">Tutorial</router-link>
-      <router-link to="/about" class="nav-link" @click="closeMenu">Screenshots</router-link>
+      <router-link to="/tutorial" class="nav-link" @click="closeMenu">Tutorial</router-link>
+      <router-link to="/screenshots" class="nav-link" @click="closeMenu">Screenshots</router-link>
     </nav>
   </header>
 </template>
