@@ -2,30 +2,49 @@
   <body>
     <div v-if="level" class="gameboard">
       <router-link to="/levels">
-          <font-awesome-icon icon="fas fa-chevron-left" :style="{ fontSize: '25px', color: '#fff' }" />
-        </router-link>
-        <div class="game-container">
-    <div class="level-container">
-      <div class="level-text">
-      <p class="level-number">{{ level?.title }}</p>
-      <p class="level-title">{{ level?.level_name }}</p>
-      <p class="level-description">{{ level?.instructions }}</p>
-      <div class="level-acceptable_values">
-    <p v-if="level?.acceptable_values">
-      <span v-for="(value, index) in level.acceptable_values.split('.')" :key="index">
-        {{ value }}
-        <br v-if="index < level.acceptable_values.split('.').length - 1" />
-      </span>
-    </p>
-  </div>
-    </div>
-      <InputField :level="levelData[route.params.levelId as string]" :isLevelCompleted="isLevelCompleted" @requestNextLevel="goToNextLevel" @updateCustomStyles="handleInput" :sharedStyles="sharedStyles" @goToNextLevel="goToNextLevel"/>
-    </div>
-    <div>
-      <Game :level="levelData[route.params.levelId as string]" :levelId="route.params.levelId" :sharedStyles="toRefs(sharedStyles)" :isLevelCompleted="isLevelCompleted" :updateFunction="updateStylesAndCheckCompletion" @containerRef="handleContainerRef"/>
-    </div>
-  </div>
-     
+        <font-awesome-icon
+          icon="fas fa-chevron-left"
+          :style="{ fontSize: '25px', color: '#fff' }"
+        />
+      </router-link>
+      <div class="game-container">
+        <div class="level-container">
+          <div class="level-text">
+            <p class="level-number">{{ level?.title }}</p>
+            <p class="level-title">{{ level?.level_name }}</p>
+            <p class="level-description">{{ level?.instructions }}</p>
+            <div class="level-acceptable_values">
+              <p v-if="level?.acceptable_values">
+                <span
+                  v-for="(value, index) in level.acceptable_values.split('.')"
+                  :key="index"
+                >
+                  {{ value }}
+                  <br v-if="index < level.acceptable_values.split('.').length - 1" />
+                </span>
+              </p>
+            </div>
+          </div>
+          <InputField
+            :level="levelData[route.params.levelId as string]"
+            :isLevelCompleted="isLevelCompleted"
+            @requestNextLevel="goToNextLevel"
+            @updateCustomStyles="handleInput"
+            :sharedStyles="sharedStyles"
+            @goToNextLevel="goToNextLevel"
+          />
+        </div>
+        <div>
+          <Game
+            :level="levelData[route.params.levelId as string]"
+            :levelId="route.params.levelId"
+            :sharedStyles="toRefs(sharedStyles)"
+            :isLevelCompleted="isLevelCompleted"
+            :updateFunction="updateStylesAndCheckCompletion"
+            @containerRef="handleContainerRef"
+          />
+        </div>
+      </div>
     </div>
     <div v-else>
       <p>Loading...</p>
@@ -35,7 +54,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive, toRefs, toRaw } from 'vue';
+import {
+  ref,
+  onMounted,
+  watch,
+  reactive,
+  toRefs,
+  toRaw
+} from 'vue';
 import supabase from '../../config/supabaseClient';
 import { useRoute } from 'vue-router';
 import Game from '../../components/Game.vue';
@@ -48,7 +74,6 @@ const route = useRoute();
 const sharedStyles = ref({ customStyle: reactive({}) });
 const showCompletionModal = ref(false);
 const isLevelCompleted = ref(false);
-
 const containerRef = ref(null);
 
 const handleContainerRef = (ref: any) => {
@@ -56,16 +81,17 @@ const handleContainerRef = (ref: any) => {
   updateStylesAndCheckCompletion();
 };
 
-
 const handleInput = (newStyles: { customStyle: { [key: string]: string } }) => {
   console.log('Styles received in GameboardPage:', newStyles);
   sharedStyles.value.customStyle = newStyles.customStyle || {};
   const levelId = route.params.levelId as string;
-  localStorage.setItem(`customStyle_${levelId}`, JSON.stringify(newStyles.customStyle || {}));
+  localStorage.setItem(
+    `customStyle_${levelId}`,
+    JSON.stringify(newStyles.customStyle || {})
+  );
   updateStylesAndCheckCompletion(newStyles);
 };
 
-// added
 import BlackCat from '@/assets/black-cat.png';
 import OrangeBox from '@/assets/orange-box.png';
 import BlackCatInBox from '@/assets/black-cat-in-box.png';
@@ -301,33 +327,32 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 
 <style scoped lang="scss">
 @import '@/style/main';
+
 .gameboard {
-    min-height: 100vh;
-    text-align: left;
-    color: white; 
-    padding: 30px;
- 
-  }
+  min-height: 100vh;
+  text-align: left;
+  color: white;
+  padding: 30px;
+}
 
-  .game-container {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-around;
-  }
+.game-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
-  .level-container {
-    display: flex;
+.level-container {
+  display: flex;
   flex-direction: column;
-  align-items: center; /* Center the items horizontally */
+  align-items: center;
   justify-content: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .level-text {
   padding-left: 50px;
   padding-right: 80px;
   margin-top: -10px;
-
 }
 
 .level-number {
@@ -350,25 +375,21 @@ watch(() => route.params.levelId, (newLevelId, oldLevelId) => {
 .level-acceptable_values {
   font-size: smaller;
   color: #ffffff;
-  
 }
 
 @media (max-width: 1025px) {
-
   .game-container {
     flex-direction: column-reverse;
     align-items: center;
   }
 
   .level-text {
-  margin-top: 30px;
-
-}
-
-}
-
-  .back-button {
-    margin-bottom: 10px;
-    cursor: pointer;
+    margin-top: 30px;
   }
+}
+
+.back-button {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
 </style>

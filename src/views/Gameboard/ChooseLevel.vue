@@ -6,9 +6,9 @@
       </router-link>
     </div>
     <div class="centered-container">
-     <router-link to="/">
-       <img src="../../assets/cat-box-logo.png" alt="CatBox logo"  width="230">
-     </router-link>
+      <div class="logo">    
+          <img src="../../assets/cat-box-logo.png" alt="CatBox logo">
+      </div> 
     </div>
     <div class="right-container"></div>
   </header>
@@ -55,20 +55,11 @@ const navigateToGameboard = (levelId: number) => {
     
 <style scoped lang="scss">
 @import '@/style/main';
-    
-.header {
-    background-color: #1C0C45;
-    padding: 1.3rem 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .right-container {
   padding: 10px;
 }
 .body {
-  min-height: 100vh;
   padding: 40px;
 }
 .level-container {

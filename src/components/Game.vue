@@ -1,21 +1,32 @@
 <template>
-  <div :key="Object.keys(getContainerStyles).join('')" class="container" :style="getContainerStyles" ref="containerRef">
-   <img src="../assets/bone-fish.png" class="bone-fish" alt="Bonefish">
-   <template v-if="!props.isLevelCompleted">
-     <div v-for="(cat, index) in props.level?.cats" :key="index">
-   <img  class='cat' :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />
-   </div>
-   <div v-for="(box, index) in props.level?.boxes" :key="index">
-   <img class='box' :src="box" :style="{...props.level?.levelBoxStyling && props.level?.levelBoxStyling[index] }" alt="Level box">
- </div>
-   </template>
-   <template v-else>
-   <div v-for="(catInBox, index) in props.level?.catsInBoxes" :key="index">
-   <img  class='catInBox' :src="catInBox" :style="{ ...props.level?.levelCatStyling }" alt="Level cat in" />
-   </div>
- </template>
- </div>
+  <div
+    :key="Object.keys(getContainerStyles).join('')"
+    class="container"
+    :style="getContainerStyles"
+    ref="containerRef"
+  >
+    <img src="../assets/bone-fish.png" class="bone-fish" alt="Bonefish" />
+    <template v-if="!props.isLevelCompleted">
+      <div v-for="(cat, index) in props.level?.cats" :key="index">
+        <img class="cat" :src="cat" :style="{ ...props.level?.levelCatStyling }" alt="Level cat" />
+      </div>
+      <div v-for="(box, index) in props.level?.boxes" :key="index">
+        <img
+          class="box"
+          :src="box"
+          :style="{...props.level?.levelBoxStyling && props.level?.levelBoxStyling[index] }"
+          alt="Level box"
+        />
+      </div>
+    </template>
+    <template v-else>
+      <div v-for="(catInBox, index) in props.level?.catsInBoxes" :key="index">
+        <img class="catInBox" :src="catInBox" :style="{ ...props.level?.levelCatStyling }" alt="Level cat in" />
+      </div>
+    </template>
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';

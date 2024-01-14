@@ -1,0 +1,16 @@
+@import './variables';
+
+.header {
+    padding: 1.3rem 4%;
+    background-color: $secondaryColor; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .logo {
+      img {
+        width: 200px; 
+      }
+    }
+    
+}

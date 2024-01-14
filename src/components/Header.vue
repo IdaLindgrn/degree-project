@@ -2,21 +2,22 @@
   <header class="header">
     <div class="logo">
       <router-link to="/">
-        <img src="../assets/cat-box-logo.png" alt="CatBox logo"  width="230">
+        <img src="../assets/cat-box-logo.png" alt="CatBox logo">
       </router-link>
     </div>
     <div class="hamburger-menu" @click="toggleMenu">
       <font-awesome-icon icon="fas fa-bars" :style="{ fontSize: iconSize }" />
     </div>
-    <nav class="nav"  :class="{ 'nav-open': isMenuOpen }">
+    <nav class="nav" :class="{ 'nav-open': isMenuOpen }">
       <router-link to="/" class="nav-link" @click="closeMenu">Home</router-link>
       <router-link to="/about" class="nav-link" @click="closeMenu">About</router-link>
-      <router-link to="/profile" class="nav-link" >
-        <OverviewAccount/>
+      <router-link to="/profile" class="nav-link">
+        <OverviewAccount />
       </router-link>
     </nav>
   </header>
-  </template>
+</template>
+
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
@@ -55,22 +56,10 @@ window.addEventListener('resize', () => {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/style/main';
 
-.header {
-    background-color: $secondaryColor;
-    display: flex;
-    justify-content: space-between;
-}
-
-.logo {
-  padding: 1rem;
-    display: flex;
-    align-items: center;
-}
 .nav {
-  padding: 2.3rem 5%;
   display: flex;
   align-items: center;
 }
@@ -83,7 +72,6 @@ window.addEventListener('resize', () => {
 
 .hamburger-menu {
   display: none;
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -93,7 +81,7 @@ window.addEventListener('resize', () => {
     cursor: pointer;
     color: $primaryFontColor;
     align-items: center;
-    padding: 37px;
+    padding-right: 20px;
   }
 
   .nav {
@@ -106,7 +94,6 @@ window.addEventListener('resize', () => {
     z-index: 1;
     display: none;
   }
-
   .nav-open {
     display: flex;
   }

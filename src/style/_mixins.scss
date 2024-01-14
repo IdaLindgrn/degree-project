@@ -1,0 +1,18 @@
+@import "variables";
+
+@mixin desktop {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: 786px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+    @media screen and (min-width: 510px) {
+      @content;
+   }
+}

@@ -7,14 +7,20 @@
       <div class="input">
         <p class="input-ground">#alley {</p>
         <p class="input-ground">display: flex;</p>
-      <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
-      <p>}</p>
+        <textarea id="catStyleInput" v-model="inputStyleText" @input="convertInputToCustomStyle"></textarea>
+        <p>}</p>
+      </div>
     </div>
-    <button :style="{ backgroundColor: !props.isLevelCompleted ? '#5e5e5f' : '' }" @click="goToNextLevel" class="next-level-button">Next Level</button>
-    </div>
-    
+    <button
+      :style="{ backgroundColor: !props.isLevelCompleted ? '#5e5e5f' : '' }"
+      @click="goToNextLevel"
+      class="next-level-button"
+    >
+      Next Level
+    </button>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
